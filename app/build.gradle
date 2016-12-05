@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "maps.programacion.fundamentos.es.androidfundamentosproyecto"
-        minSdkVersion 15
+        applicationId "es.maps.programacion.fundamentos.androidfundamentosproyecto"
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -14,8 +17,16 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+            resValue "string", "facebook_application_id",
+                    project.property('facebook_application_id')
         }
+        debug {
+            resValue "string", "facebook_application_id",
+                    project.property('facebook_application_id')
+        }
+
     }
 }
 
@@ -25,5 +36,17 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.google.firebase:firebase-database:9.8.0'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.firebaseui:firebase-ui:1.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
     testCompile 'junit:junit:4.12'
 }
+
+apply plugin: 'com.google.gms.google-services'
+
