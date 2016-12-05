@@ -2,13 +2,18 @@ package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.ui;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 
 /**
@@ -16,7 +21,44 @@ import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
  */
 public class TabCalculadora extends Fragment {
 
-    private TextView pantallaCalculadora;
+    @BindView(R.id.pantalla_calculadora)
+    TextView pantallaCalculadora;
+    @BindView(R.id.btn1)
+    Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
+    @BindView(R.id.btn3)
+    Button btn3;
+    @BindView(R.id.btn4)
+    Button btn4;
+    @BindView(R.id.btn5)
+    Button btn5;
+    @BindView(R.id.btn6)
+    Button btn6;
+    @BindView(R.id.btn7)
+    Button btn7;
+    @BindView(R.id.btn8)
+    Button btn8;
+    @BindView(R.id.btn9)
+    Button btn9;
+    @BindView(R.id.btn0)
+    Button btn0;
+    @BindView(R.id.btnMas)
+    Button btnMas;
+    @BindView(R.id.btnIgual)
+    Button btnIgual;
+    @BindView(R.id.btnClear)
+    Button btnClear;
+    @BindView(R.id.btnPunto)
+    Button btnPunto;
+    @BindView(R.id.btnPTS)
+    Button btnPTS;
+    @BindView(R.id.btnEUR)
+    Button btnEUR;
+    @BindView(R.id.btnMenos)
+    Button btnMenos;
+
+    /*private TextView pantallaCalculadora;*/
 
 
     private Double acumulador = 0d;
@@ -26,22 +68,29 @@ public class TabCalculadora extends Fragment {
 
     private boolean flagDecimalIntroducido = false;
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        inicializaComponentes();
     }
+
+    private void inicializaComponentes() {
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.calculadora_tab, container, false);
+        View view = inflater.inflate(R.layout.calculadora_tab, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     void pulsaDigitoCalculadora(View view) {
 
         String tag = view.getTag().toString();
 
-        pantallaCalculadora = (TextView) getActivity().findViewById(R.id.pantalla_calculadora);
+        //pantallaCalculadora = (TextView) getActivity().findViewById(R.id.pantalla_calculadora);
 
         double sumando = 0;
 
@@ -49,8 +98,7 @@ public class TabCalculadora extends Fragment {
                 !tag.equals(getResources().getString(R.string.digito_MAS_calculadora)) &&
                 !tag.equals(getResources().getString(R.string.digito_PTS_calculadora)) &&
                 !tag.equals(getResources().getString(R.string.digito_EUR_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
-        {
+                !tag.equals(getResources().getString(R.string.digito_MENOS_calculadora))) {
             actualizaPantalla(tag, "");
         }
 
@@ -65,7 +113,7 @@ public class TabCalculadora extends Fragment {
                 acumulador = 0d;
                 flagNuevoNumero = true;
                 flagDecimalIntroducido = false;
-                tagPrevia="";
+                tagPrevia = "";
 
             } else if (tag.equals(getResources().getString(R.string.digito_MAS_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0d ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0d;
@@ -76,12 +124,12 @@ public class TabCalculadora extends Fragment {
 
                 if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
                     acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else  if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
+                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
                     acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
                 else
-                    acumulador=sumando;
+                    acumulador = sumando;
 
-                tagPrevia=tag;
+                tagPrevia = tag;
 
                 if (acumulador % 1f == 0f) {
                     actualizaPantalla(tag, String.format("%d", (acumulador.longValue())));
@@ -97,12 +145,10 @@ public class TabCalculadora extends Fragment {
 
                 if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
                     acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else  if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
+                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
                     acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
                 else
-                    acumulador=sumando;
-
-
+                    acumulador = sumando;
 
 
                 flagNuevoNumero = true;
@@ -116,7 +162,7 @@ public class TabCalculadora extends Fragment {
                 }
 
 
-                tagPrevia=tag;
+                tagPrevia = tag;
 
                 //Log.d("PANTALLA_ACUMULADOR", String.valueOf(sumando));
 
@@ -124,9 +170,9 @@ public class TabCalculadora extends Fragment {
 
                 if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
                     acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else  if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
+                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
                     acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
-                else acumulador= Double.parseDouble(pantallaCalculadora.getText().toString());
+                else acumulador = Double.parseDouble(pantallaCalculadora.getText().toString());
 
                 if (acumulador % 1f == 0f) {
                     actualizaPantalla(tag, String.format("%d", (acumulador.longValue())));
@@ -137,7 +183,7 @@ public class TabCalculadora extends Fragment {
                 flagDecimalIntroducido = false;
 
                 //acumulador = 0d;
-                tagPrevia="";
+                tagPrevia = "";
 
             } else if (tag.equals(getResources().getString(R.string.digito_PTS_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
@@ -145,7 +191,7 @@ public class TabCalculadora extends Fragment {
 
                 flagNuevoNumero = true;
                 flagDecimalIntroducido = false;
-                tagPrevia="";
+                tagPrevia = "";
 
             } else if (tag.equals(getResources().getString(R.string.digito_EUR_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
@@ -153,7 +199,7 @@ public class TabCalculadora extends Fragment {
 
                 flagNuevoNumero = true;
                 flagDecimalIntroducido = false;
-                tagPrevia="";
+                tagPrevia = "";
 
             } else if (tag.equals(getResources().getString(R.string.digito_PUNTO_calculadora))) {
                 if (!flagDecimalIntroducido) {
@@ -178,7 +224,6 @@ public class TabCalculadora extends Fragment {
         }
 
 
-
     }
 
     void actualizaPantalla(String tag, String valor) {
@@ -194,5 +239,12 @@ public class TabCalculadora extends Fragment {
                 flagDecimalIntroducido = true;
             }
         }
+    }
+
+
+    @OnClick({R.id.pantalla_calculadora, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn0, R.id.btnMas, R.id.btnIgual, R.id.btnClear, R.id.btnPunto, R.id.btnPTS, R.id.btnEUR, R.id.btnMenos})
+    public void onClick(View view) {
+        pulsaDigitoCalculadora(view);
+
     }
 }

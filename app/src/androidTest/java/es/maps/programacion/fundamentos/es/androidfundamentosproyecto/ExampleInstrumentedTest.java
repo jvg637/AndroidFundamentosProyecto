@@ -1,4 +1,4 @@
-package maps.programacion.fundamentos.es.androidfundamentosproyecto;
+
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("maps.programacion.fundamentos.es.androidfundamentosproyecto", appContext.getPackageName());
+        assertEquals("es.maps.programacion.fundamentos.es.androidfundamentosproyecto", appContext.getPackageName());
     }
 }
