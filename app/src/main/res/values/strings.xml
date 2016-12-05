@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">AndroidFundamentosProyecto</string>
+    <string name="app_name">MapaMundi Fundamentos</string>
+
+    <string name="main_activity_titulo_pestaña_boton_animado">Botón Animado</string>
+    <string name="main_activity_titulo_pestaña_calculadora">Calculadora</string>
+
+    <string name="digito_1_calculadora">1</string>
+    <string name="digito_2_calculadora">2</string>
+    <string name="digito_3_calculadora">3</string>
+    <string name="digito_4_calculadora">4</string>
+    <string name="digito_5_calculadora">5</string>
+    <string name="digito_0_calculadora">0</string>
+    <string name="digito_9_calculadora">9</string>
+    <string name="digito_8_calculadora">8</string>
+    <string name="digito_7_calculadora">7</string>
+    <string name="digito_6_calculadora">6</string>
+    <string name="digito_C_calculadora">CE</string>
+    <string name="digito_IGUAL_calculadora">=</string>
+    <string name="digito_PTS_calculadora">Pts</string>
+    <string name="digito_EUR_calculadora">€</string>
+    <string name="digito_PUNTO_calculadora">.</string>
+    <string name="calculadora_overflow">Err. OverFlow</string>
+    <string name="tab_other_title">Otra</string>
+    <string name="otra_tab_title">Prueba de pestaña con icono</string>
+    <string name="digito_MAS_calculadora">+</string>
+    <string name="digito_MENOS_calculadora">-</string>
+    <string name="acerca_de">Aplicación de Mapas, Himnos y Geolocalización</string>
 </resources>

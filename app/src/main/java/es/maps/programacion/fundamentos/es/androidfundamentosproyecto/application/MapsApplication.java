@@ -1,5 +1,7 @@
 package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application;
 
+import android.app.Application;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -8,13 +10,11 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by jvg63 on 03/12/2016.
  */
 
-public class MapsApplication extends android.app.Application {
+public class MapsApplication extends Application {
     private String ITEMS_CHILD_NAME = "items";
     private DatabaseReference itemsReference;
 
-    public FirebaseAuth getAuth() {
-        return auth;
-    }
+
 
     private FirebaseAuth auth;
 
@@ -30,5 +30,9 @@ public class MapsApplication extends android.app.Application {
 
     public DatabaseReference getItemsReference() {
         return itemsReference;
+    }
+
+    public FirebaseAuth getAuth() {
+        return auth;
     }
 }

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:id="@+id/pantalla_calculadora"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/calculadora_tab_pantalla"
+        android:background="@color/colorPrimary"
+        android:padding="5dp"
+        android:maxLength="@integer/maxPosiciones"
+        android:maxLines="1"
+        android:layout_margin="3dp"
+        />
+
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+           >
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_1_calculadora"
+                android:tag="@string/digito_1_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_2_calculadora"
+                android:tag="@string/digito_2_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_3_calculadora"
+                android:tag="@string/digito_3_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_4_calculadora"
+                android:tag="@string/digito_4_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_5_calculadora"
+                android:tag="@string/digito_5_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_6_calculadora"
+                android:tag="@string/digito_6_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_7_calculadora"
+                android:tag="@string/digito_7_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_8_calculadora"
+                android:tag="@string/digito_8_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+
+            <Button
+                style="@style/EstiloBotonCalculadoraDigito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digito_9_calculadora"
+                android:tag="@string/digito_9_calculadora"
+                android:onClick="pulsaDigitoCalculadora" />
+        </LinearLayout>
+
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/digito_0_calculadora"
+            android:tag="@string/digito_0_calculadora"
+            android:onClick="pulsaDigitoCalculadora" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="pulsaDigitoCalculadora"
+            android:text="@string/digito_MAS_calculadora"
+            android:tag="@string/digito_MAS_calculadora"/>
+
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="pulsaDigitoCalculadora"
+            android:text="@string/digito_IGUAL_calculadora"
+            android:tag="@string/digito_IGUAL_calculadora"
+            />
+
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/digito_C_calculadora"
+            android:tag="@string/digito_C_calculadora"
+            android:onClick="pulsaDigitoCalculadora"/>
+    </LinearLayout>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/digito_PUNTO_calculadora"
+            android:tag="@string/digito_PUNTO_calculadora"
+
+            android:onClick="pulsaDigitoCalculadora" />
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/digito_PTS_calculadora"
+            android:tag="@string/digito_PTS_calculadora"
+            android:layout_weight="1"
+            android:onClick="pulsaDigitoCalculadora" />
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/digito_EUR_calculadora"
+            android:tag="@string/digito_EUR_calculadora"
+            android:layout_weight="1"
+            android:onClick="pulsaDigitoCalculadora" />
+        <Button
+            style="@style/EstiloBotonCalculadoraDigito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/digito_MENOS_calculadora"
+            android:tag="@string/digito_MENOS_calculadora"
+
+            android:onClick="pulsaDigitoCalculadora" />
+
+</LinearLayout>
+    </LinearLayout>

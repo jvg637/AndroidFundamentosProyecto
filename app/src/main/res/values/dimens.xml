@@ -2,4 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="margen_botones">30dp</dimen>
+    <dimen name="seperador_botones">15dp</dimen>
+    <dimen name="main_activity_fuente_titulo">55sp</dimen>
+    <dimen name="calculadora_tab_pantalla">40sp</dimen>
+
 </resources>
