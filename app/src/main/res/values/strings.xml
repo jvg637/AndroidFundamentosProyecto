@@ -25,4 +25,9 @@
     <string name="digito_MAS_calculadora">+</string>
     <string name="digito_MENOS_calculadora">-</string>
     <string name="acerca_de">Aplicación de Mapas, Himnos y Geolocalización</string>
+    <string name="btn_text_solicitud_permisos">Solicitud de Permisos</string>
+    <string name="btn_crea_notificacion_alarma">Crear Alarma</string>
+    <string name="main_activity_titulo_pestaña_mapa">Mapa</string>
+    <string name="permiso_posicionamiento_info">Sin los permisos de localización no se mostrará la localización</string>
+    <string name="permiso_OK">OK</string>
 </resources>

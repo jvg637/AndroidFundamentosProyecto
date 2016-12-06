@@ -22,3 +22,14 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    compileSdkVersion =24
+    buildToolsVersion ='25.0.1'
+    minSdkVersion= 16
+    targetSdkVersion= 25
+    supportLibraryVersion='25.0.1'
+    playServicesVersion='9.8.0'
+    butterknife='8.4.0'
+    firebase_ui="1.0.0"
+}

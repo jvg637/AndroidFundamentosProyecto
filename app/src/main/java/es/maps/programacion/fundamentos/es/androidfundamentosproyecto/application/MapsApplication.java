@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib.LatLngToPais;
+
 /**
  * Created by jvg63 on 03/12/2016.
  */
@@ -13,10 +15,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MapsApplication extends Application {
     private String ITEMS_CHILD_NAME = "items";
     private DatabaseReference itemsReference;
-
+    private LatLngToPais moduloPais;
 
 
     private FirebaseAuth auth;
+
+    public LatLngToPais getModuloPais() {
+        return moduloPais;
+    }
 
     @Override
     public void onCreate() {
@@ -25,6 +31,7 @@ public class MapsApplication extends Application {
         database.setPersistenceEnabled(true);
         itemsReference = database.getReference(ITEMS_CHILD_NAME);
         auth = FirebaseAuth.getInstance();
+        moduloPais = new LatLngToPais(this);
 
     }
 

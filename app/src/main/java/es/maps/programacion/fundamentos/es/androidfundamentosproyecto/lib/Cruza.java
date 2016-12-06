@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.xml;
+package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib;
 
 import java.io.BufferedReader;
 import java.io.File;

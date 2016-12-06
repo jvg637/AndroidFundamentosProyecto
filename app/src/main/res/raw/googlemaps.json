@@ -1,0 +1,137 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Unnamed Road",
+               "short_name" : "Unnamed Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Yobe",
+               "short_name" : "Yobe",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Nigeria",
+               "short_name" : "NG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Unnamed Road, Nigeria",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.0509483,
+                  "lng" : 12.099143
+               },
+               "southwest" : {
+                  "lat" : 11.9867619,
+                  "lng" : 12.0580957
+               }
+            },
+            "location" : {
+               "lat" : 12.017755,
+               "lng" : 12.0803666
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.0509483,
+                  "lng" : 12.099143
+               },
+               "southwest" : {
+                  "lat" : 11.9867619,
+                  "lng" : 12.0580957
+               }
+            }
+         },
+         "place_id" : "ChIJHWBgo2YdBBERuMdrfaJFzPE",
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Yobe",
+               "short_name" : "Yobe",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Nigeria",
+               "short_name" : "NG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Yobe, Nigeria",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 13.376133,
+                  "lng" : 12.494047
+               },
+               "southwest" : {
+                  "lat" : 10.5930769,
+                  "lng" : 9.665973100000002
+               }
+            },
+            "location" : {
+               "lat" : 12.1871412,
+               "lng" : 11.7068294
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 13.376133,
+                  "lng" : 12.494047
+               },
+               "southwest" : {
+                  "lat" : 10.5932053,
+                  "lng" : 9.665973100000002
+               }
+            }
+         },
+         "place_id" : "ChIJJz2WrejpBxERxE67Opd7Flc",
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nigeria",
+               "short_name" : "NG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nigeria",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 13.8856449,
+                  "lng" : 14.677982
+               },
+               "southwest" : {
+                  "lat" : 4.1821001,
+                  "lng" : 2.676932
+               }
+            },
+            "location" : {
+               "lat" : 9.081999,
+               "lng" : 8.675276999999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 13.8856449,
+                  "lng" : 14.677982
+               },
+               "southwest" : {
+                  "lat" : 4.269857099999999,
+                  "lng" : 2.676932
+               }
+            }
+         },
+         "place_id" : "ChIJDY2kfa8LThARyAvFaEH-qJk",
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

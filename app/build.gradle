@@ -8,8 +8,8 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "es.maps.programacion.fundamentos.androidfundamentosproyecto"
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,10 +21,12 @@ android {
                     'proguard-rules.pro'
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
+            manifestPlaceholders = [ google_map_key:"AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
         }
         debug {
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
+            manifestPlaceholders = [ google_map_key:"AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
         }
 
     }
@@ -35,15 +37,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.google.firebase:firebase-database:9.8.0'
-    compile 'com.google.firebase:firebase-auth:9.8.0'
-    compile 'com.firebaseui:firebase-ui:1.0.0'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile "com.google.firebase:firebase-database:$rootProject.ext.playServicesVersion"
+    compile "com.google.firebase:firebase-auth:$rootProject.ext.playServicesVersion"
+    compile "com.firebaseui:firebase-ui:$rootProject.ext.firebase_ui"
+    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesVersion"
+
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknife"
+
+    compile "com.android.support:preference-v7:$rootProject.ext.supportLibraryVersion"
 
     testCompile 'junit:junit:4.12'
 }
