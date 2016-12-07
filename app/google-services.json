@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "722696060201",
+    "firebase_url": "https://chat-f8453.firebaseio.com",
+    "project_id": "chat-f8453",
+    "storage_bucket": "chat-f8453.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722696060201:android:43f506f75d467777",
+        "android_client_info": {
+          "package_name": "es.maps.programacion.fundamentos.androidfundamentosproyecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722696060201-3s53r232dcij7imgfc62bto8bb3r6gvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.maps.programacion.fundamentos.androidfundamentosproyecto",
+            "certificate_hash": "2353F147D141AB8AB043405B78B83840BA3ED2DA"
+          }
+        },
+        {
+          "client_id": "722696060201-9q3p8uvj2p2qhbd2m280d91vl9iaghf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOOA4Jz2RknmJKE2FHkSvSHJqqOSrjM40"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722696060201-9q3p8uvj2p2qhbd2m280d91vl9iaghf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

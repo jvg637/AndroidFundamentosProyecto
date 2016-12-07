@@ -40,7 +40,7 @@ import static android.content.Context.LOCATION_SERVICE;
 /**
  * Created by jvg63 on 21/09/2016.
  */
-public class TabMapa extends Fragment implements  OnMapReadyCallback, LocationListener {
+public class TabMapa extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private static final long DOS_MINUTOS = 120 * 1000;
     private View layout;
@@ -58,21 +58,22 @@ public class TabMapa extends Fragment implements  OnMapReadyCallback, LocationLi
     private View rootView;
 
     private MapsApplication app;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
-            if(rootView==null){
-                rootView = inflater.inflate(R.layout.mapa_tab, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.mapa_tab, container, false);
 
-                manejador = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+            manejador = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
-                layout=rootView.findViewById(R.id.layout);
+            layout = rootView.findViewById(R.id.layout);
 
-                app =(MapsApplication) getContext().getApplicationContext();
-
-            }
-            return rootView;
+            app = (MapsApplication) getContext().getApplicationContext();
 
         }
+        return rootView;
+
+    }
 
     @Override
     public void onMapReady(GoogleMap retMap) {
@@ -100,11 +101,10 @@ public class TabMapa extends Fragment implements  OnMapReadyCallback, LocationLi
 
     }*/
 
+
         marcadorColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-
-        {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -114,67 +114,26 @@ public class TabMapa extends Fragment implements  OnMapReadyCallback, LocationLi
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
         Location posicion1 = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         Location posicion2 = manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         LatLng pos = null;
-
         if (posicion1 != null && posicion2 == null)
-
-        {
             pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
-        } else if (posicion1 == null && posicion2 != null)
-
-        {
+        else if (posicion1 == null && posicion2 != null)
             pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
-
-        } else
-
-        {
-
-            if (posicion1 != null && posicion2 != null) {
-
-                if (posicion1.getAccuracy() < posicion2.getAccuracy() || posicion1.getTime() > posicion2.getTime()) {
-                    pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
-
-                } else {
-                    pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
-                }
-            }
-        }
-
-        if (pos != null)
-
-        {
-
+        else if (posicion1 != null && posicion2 != null)
+            if (posicion1.getAccuracy() < posicion2.getAccuracy() || posicion1.getTime() > posicion2.getTime())
+                pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
+            else pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
+        if (pos != null) {
             posicionActual = map.addMarker(new MarkerOptions().position(pos).icon(marcadorColor));
-
-
-        /*if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_CONTROL_REPRODUCTOR && telefono != null && mensaje != null) {
-            posicionActual.setTitle(mensaje);
-
-        } else if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_ABRIR_MAPA && telefono != null) {
-            posicionActual.setTitle(telefono);
-        } else if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_GPS_CIRCULO_POLAR_ANTARTICO) {
-            posicionActual.setTitle("Circulo Polar Artico");
-        } else {
-
             posicionActual.setTitle("Actividad Principal");
-
-        }*/
-            posicionActual.setTitle("Actividad Principal");
-
-            Pais pais = app.getModuloPais().leerJSon( pos );
-
-            posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")" + (pais!=null?"-"+pais.getPaisES():""));
-
+            Pais pais = app.getModuloPais().getPais(pos);
+            posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")" + (pais != null ? "-" + pais.getPaisES() : ""));
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
-
         }
-
         setUpMap();
-
     }
 
     public void setUpMap() {
@@ -255,7 +214,7 @@ public class TabMapa extends Fragment implements  OnMapReadyCallback, LocationLi
                 }
             }).show();
         } else {
-            requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SOLICITUD_PERMISO_GPS);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SOLICITUD_PERMISO_GPS);
         }
 
     }

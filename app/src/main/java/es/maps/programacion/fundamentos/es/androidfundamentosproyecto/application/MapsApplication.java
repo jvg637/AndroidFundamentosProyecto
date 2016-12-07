@@ -42,4 +42,5 @@ public class MapsApplication extends Application {
     public FirebaseAuth getAuth() {
         return auth;
     }
+
 }
