@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout"
     tools:context="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.MainActivity">
 
     <fragment
@@ -16,5 +16,54 @@
         android:id="@+id/button_permisos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_text_solicitud_permisos"/>
+        android:text="@string/btn_text_solicitud_permisos" />
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ButonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:id="@+id/play"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:src="@drawable/play" />
+
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:id="@+id/pause"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:src="@drawable/pause" />
+
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:id="@+id/stop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:src="@drawable/stop" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/Log"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="Log:"
+            android:visibility="gone" />
+    </LinearLayout>
 </FrameLayout>

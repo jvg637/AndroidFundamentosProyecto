@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,7 +45,7 @@ import static android.content.Context.LOCATION_SERVICE;
 /**
  * Created by jvg63 on 21/09/2016.
  */
-public class TabMapa extends Fragment implements OnMapReadyCallback, LocationListener {
+public class TabMapa extends Fragment implements OnMapReadyCallback, LocationListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
     private static final long DOS_MINUTOS = 120 * 1000;
     private View layout;
@@ -59,6 +64,17 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     private MapsApplication app;
 
+
+    // Reproductor
+    private MediaPlayer mediaPlayer;
+
+
+    private ImageButton bPlay, bPause, bStop, bLog;
+    private TextView logTextView;
+    private boolean pause, stop;
+    private String path="https://upload.wikimedia.org/wikipedia/commons/c/c8/Marcha_Real-Royal_March_by_US_Navy_Band.ogg";
+    private int savePos = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
@@ -70,10 +86,110 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
             app = (MapsApplication) getContext().getApplicationContext();
 
+            logTextView = (TextView) rootView.findViewById(R.id.Log);
+            bPlay = (ImageButton) rootView.findViewById(R.id.play);
+            bPlay.setOnClickListener(new View.OnClickListener() {
+                                         public void onClick(View view) {
+                                             if (mediaPlayer != null && !stop) {
+                                                 if (pause) {
+                                                     mediaPlayer.start();
+                                                 } /*else {
+                                                 playVideo();
+                                             }*/
+                                             } else {
+                                                 playVideo();
+                                             }
+                                         }
+                                     }
+
+            );
+            bPause = (ImageButton)
+
+                    rootView.findViewById(R.id.pause);
+
+            bPause.setOnClickListener(new View.OnClickListener()
+
+                                      {
+                                          public void onClick(View view) {
+                                              if (mediaPlayer != null) {
+                                                  pause = true;
+                                                  mediaPlayer.pause();
+                                              }
+
+                                          }
+                                      }
+
+            );
+            bStop = (ImageButton)
+
+                    rootView.findViewById(R.id.stop);
+
+            bStop.setOnClickListener(new View.OnClickListener()
+
+                                     {
+                                         public void onClick(View view) {
+                                             if (mediaPlayer != null) {
+                                                 pause = false;
+                                                 stop = true;
+                                                 mediaPlayer.stop();
+                                             }
+                                         }
+                                     }
+
+            );
+
+            showMessage("");
+
         }
         return rootView;
 
     }
+
+    private void showMessage(String msg) {
+        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Log.d("REPRODUCTOR", "Value is: " + msg);
+
+
+        logTextView.append(msg + "\n");
+    }
+
+
+    public void onBufferingUpdate(MediaPlayer arg0, int percent) {
+        showMessage("onBufferingUpdate percent:" + percent);
+    }
+
+    public void onCompletion(MediaPlayer arg0) {
+        showMessage("onCompletion called");
+    }
+
+    public void onPrepared(MediaPlayer mediaplayer) {
+        showMessage("onPrepared called");
+
+
+        mediaPlayer.start();
+
+    }
+
+    private void playVideo() {
+        try {
+            pause = false;
+            stop = false;
+            //path = editText.getText().toString();
+            if (mediaPlayer != null) mediaPlayer.release();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(path);
+            //mediaPlayer.prepare();
+            mediaPlayer.prepareAsync(); //Si streaming
+            mediaPlayer.setOnBufferingUpdateListener(this);
+            mediaPlayer.setOnCompletionListener(this);
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.seekTo(savePos);
+        } catch (Exception e) {
+            showMessage("ERROR: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void onMapReady(GoogleMap retMap) {
@@ -158,6 +274,24 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mediaPlayer != null & !pause) {
+            mediaPlayer.start();
+        }
+    }
+
+    @Override
+    public void onPause() {
+
+        if (mediaPlayer != null & !pause) {
+            mediaPlayer.pause();
+        }
+
+        super.onPause();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
 
@@ -172,6 +306,27 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             return;
         }
         manejador.removeUpdates(this);
+    }
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle guardarEstado) {
+        super.onSaveInstanceState(guardarEstado);
+        if (mediaPlayer != null) {
+            int pos = mediaPlayer.getCurrentPosition();
+            guardarEstado.putString("ruta", path);
+            guardarEstado.putInt("posicion", pos);
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle recEstado) {
+        super.onViewStateRestored(recEstado);
+        if (recEstado != null) {
+            path = recEstado.getString("ruta");
+            savePos = recEstado.getInt("posicion");
+        }
     }
 
 
@@ -326,6 +481,11 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                 .findFragmentById(R.id.map);
         if (f != null)
             getFragmentManager().beginTransaction().remove(f).commit();
+
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     public void mostrarAlertaConfiguracion() {

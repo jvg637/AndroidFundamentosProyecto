@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib;
+package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib.paises;
 
 import android.content.Context;
 import android.os.StrictMode;

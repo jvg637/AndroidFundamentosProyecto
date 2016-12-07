@@ -23,11 +23,16 @@
 
         </activity>
         <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib.player.ui.MediaPlayerIntegrado">
+
         </activity>
     </application>
 </manifest>
