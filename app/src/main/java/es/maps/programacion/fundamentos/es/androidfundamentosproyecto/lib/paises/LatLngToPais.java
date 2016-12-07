@@ -23,7 +23,7 @@ import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.sqlite.poj
  */
 
 public class LatLngToPais {
-    private static final String FICHERO = "C:\\Users\\jvg63\\Desktop\\googlemaps.json2";
+    //private static final String FICHERO = "C:\\Users\\jvg63\\Desktop\\googlemaps.json2";
     private final Context context;
     private String string; //Almacena puntuaciones en formato JSON
 
@@ -65,7 +65,7 @@ public class LatLngToPais {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
                 String linea;
                 while ((linea = reader.readLine()) != null) {
-                    showMessage(linea);
+                    //showMessage(linea);
                     json += linea;
                 }
                 reader.close();

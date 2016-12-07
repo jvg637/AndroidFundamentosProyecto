@@ -4,15 +4,25 @@ package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.sqlite.po
  * Created by jvg63 on 05/12/2016.
  */
 public class Pais {
-    String idPais;
-    String idPais2;
-    String paisEN;
-    String paisES;
-    String divisas;
-    String himno;
-    String icono;
+    private  String idPais;
+    private  String idPais2;
+    private  String paisEN;
+    private  String paisES;
+    private  String divisas;
+    private  String himno;
+    private  String icono;
 
-    public Pais(String idPais, String idPais2, String paisEN, String paisES, String divisas, String himno, String icono) {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    private  String url;
+
+    public Pais(String idPais, String idPais2, String paisEN, String paisES, String divisas, String himno, String icono, String url) {
         this.idPais = idPais;
         this.idPais2 = idPais2;
         this.paisEN = paisEN;
@@ -20,6 +30,7 @@ public class Pais {
         this.divisas = divisas;
         this.himno = himno;
         this.icono = icono;
+        this.url = url;
     }
 
     public String getIcono() {

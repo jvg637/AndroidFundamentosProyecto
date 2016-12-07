@@ -30,4 +30,6 @@
     <string name="main_activity_titulo_pestaña_mapa">Mapa</string>
     <string name="permiso_posicionamiento_info">Sin los permisos de localización no se mostrará la localización</string>
     <string name="permiso_OK">OK</string>
+    <string name="sinpais">Indefinido</string>
+    <string name="sinmoneda">Sin moneda</string>
 </resources>

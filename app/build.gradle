@@ -21,36 +21,33 @@ android {
                     'proguard-rules.pro'
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
-            manifestPlaceholders = [ google_map_key:"AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
+            manifestPlaceholders = [google_map_key: "AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
         }
         debug {
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
-            manifestPlaceholders = [ google_map_key:"AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
+            manifestPlaceholders = [google_map_key: "AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
         }
 
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-
     compile "com.google.firebase:firebase-database:$rootProject.ext.playServicesVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.ext.playServicesVersion"
     compile "com.firebaseui:firebase-ui:$rootProject.ext.firebase_ui"
     compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesVersion"
-
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknife"
-
     compile "com.android.support:preference-v7:$rootProject.ext.supportLibraryVersion"
-
+    compile 'com.github.bigfishcat.android:svg-android:2.0.8'
     testCompile 'junit:junit:4.12'
 }
 

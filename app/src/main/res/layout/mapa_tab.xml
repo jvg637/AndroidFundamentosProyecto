@@ -12,58 +12,96 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/button_permisos"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_text_solicitud_permisos" />
-
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/ButonsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/play"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:src="@drawable/play" />
-
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/pause"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:src="@drawable/pause" />
-
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/stop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:src="@drawable/stop" />
-
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/Log"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/pais"
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:text="Log:"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/sinpais"
+            android:textSize="20sp"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/bandera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@id/pais"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/pais"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/no_icon" />
+
+        <TextView
+            android:id="@+id/divisas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/pais"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/bandera"
+            android:text="@string/sinmoneda"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@android:color/white"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:paddingLeft="110dp"
+            android:paddingRight="110dp">
+
+
+            <LinearLayout
+                android:id="@+id/ButonsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/play"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/play" />
+
+                <ImageButton
+                    android:id="@+id/pause"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/pause" />
+
+                <ImageButton
+                    android:id="@+id/stop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/stop" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Log"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:text="Log:"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>
