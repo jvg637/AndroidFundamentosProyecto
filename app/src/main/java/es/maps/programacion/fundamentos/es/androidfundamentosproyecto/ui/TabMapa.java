@@ -89,89 +89,104 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     public String paisActual = "";
     public String url = "";
+    public String paisIntencion = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.mapa_tab, container, false);
 
-            manejador = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+            // Si viene desde el recycler view (listado de paises), no se posicionará
+            obtieneDatosIniciales();
 
-            layout = rootView.findViewById(R.id.layout);
-
-            app = (MapsApplication) getContext().getApplicationContext();
-
-            bandera = (ImageView) rootView.findViewById(R.id.bandera);
-            bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            txtPais = (TextView) rootView.findViewById(R.id.pais);
-
-            txtMoneda = (TextView) rootView.findViewById(R.id.divisas);
-
-            //asignaImagen("vacio.svg", bandera);
-
-
-            logTextView = (TextView) rootView.findViewById(R.id.Log);
-            bPlay = (ImageButton) rootView.findViewById(R.id.play);
-            bPlay.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    //path = "https://upload.wikimedia.org/wikipedia/commons/c/c8/Marcha_Real-Royal_March_by_US_Navy_Band.ogg";
-                    if (mediaPlayer != null && (estado == ESTADO_PAUSE || estado == ESTADO_FINALIZADO)) {
-                        mediaPlayer.start();
-                        estado = ESTADO_PLAY;
-
-
-                    } else {
-                        if (estado == ESTADO_STOP || estado == ESTADO_NO_INICIADO || estado == ESTADO_FINALIZADO) {
-                            playVideo();
-
-                        }
-                    }
-                }
-            });
-            bPause = (ImageButton)
-
-                    rootView.findViewById(R.id.pause);
-
-            bPause.setOnClickListener(new View.OnClickListener()
-
-                                      {
-                                          public void onClick(View view) {
-                                              if (mediaPlayer != null && estado == ESTADO_PLAY) {
-                                                  estado = ESTADO_PAUSE;
-                                                  mediaPlayer.pause();
-                                                  savePos = mediaPlayer.getCurrentPosition();
-                                              }
-
-                                          }
-                                      }
-
-            );
-            bStop = (ImageButton)
-
-                    rootView.findViewById(R.id.stop);
-
-            bStop.setOnClickListener(new View.OnClickListener()
-
-                                     {
-                                         public void onClick(View view) {
-                                             if (mediaPlayer != null && (estado == ESTADO_PAUSE || estado == ESTADO_PLAY) || estado == ESTADO_FINALIZADO) {
-                                                 savePos = 0;
-                                                 estado = ESTADO_STOP;
-                                                 //path="";
-                                                 mediaPlayer.stop();
-                                             }
-                                         }
-                                     }
-
-            );
-
-            showMessage("");
-
-            estado = ESTADO_NO_INICIADO;
+            inicializaComponentes();
 
         }
         return rootView;
 
+    }
+
+    private void obtieneDatosIniciales() {
+        if (this.getActivity() instanceof ActividadMapa) {
+            paisIntencion = ((ActividadMapa) this.getActivity()).getIdPais();
+        }
+
+        // Obtiene la lat long de un país
+
+    }
+
+    private void inicializaComponentes() {
+        manejador = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+        layout = rootView.findViewById(R.id.layout);
+
+        app = (MapsApplication) getContext().getApplicationContext();
+
+        bandera = (ImageView) rootView.findViewById(R.id.bandera);
+        bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        txtPais = (TextView) rootView.findViewById(R.id.pais);
+
+        txtMoneda = (TextView) rootView.findViewById(R.id.divisas);
+
+
+        logTextView = (TextView) rootView.findViewById(R.id.Log);
+        bPlay = (ImageButton) rootView.findViewById(R.id.play);
+        bPlay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //path = "https://upload.wikimedia.org/wikipedia/commons/c/c8/Marcha_Real-Royal_March_by_US_Navy_Band.ogg";
+                if (mediaPlayer != null && (estado == ESTADO_PAUSE || estado == ESTADO_FINALIZADO)) {
+                    mediaPlayer.start();
+                    estado = ESTADO_PLAY;
+
+
+                } else {
+                    if (estado == ESTADO_STOP || estado == ESTADO_NO_INICIADO || estado == ESTADO_FINALIZADO) {
+                        playVideo();
+
+                    }
+                }
+            }
+        });
+        bPause = (ImageButton)
+
+                rootView.findViewById(R.id.pause);
+
+        bPause.setOnClickListener(new View.OnClickListener()
+
+                                  {
+                                      public void onClick(View view) {
+                                          if (mediaPlayer != null && estado == ESTADO_PLAY) {
+                                              estado = ESTADO_PAUSE;
+                                              mediaPlayer.pause();
+                                              savePos = mediaPlayer.getCurrentPosition();
+                                          }
+
+                                      }
+                                  }
+
+        );
+        bStop = (ImageButton)
+
+                rootView.findViewById(R.id.stop);
+
+        bStop.setOnClickListener(new View.OnClickListener()
+
+                                 {
+                                     public void onClick(View view) {
+                                         if (mediaPlayer != null && (estado == ESTADO_PAUSE || estado == ESTADO_PLAY) || estado == ESTADO_FINALIZADO) {
+                                             savePos = 0;
+                                             estado = ESTADO_STOP;
+                                             //path="";
+                                             mediaPlayer.stop();
+                                         }
+                                     }
+                                 }
+
+        );
+
+        showMessage("");
+
+        estado = ESTADO_NO_INICIADO;
     }
 
 
@@ -180,8 +195,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         SVG svg = null;
         Drawable drawable = null;
         try {
-             svg = SVG.getFromAsset(rootView.getContext().getAssets(), "flags/" + imagen);
-             drawable = new PictureDrawable(svg.renderToPicture());
+            svg = SVG.getFromAsset(rootView.getContext().getAssets(), "flags/" + imagen);
+            drawable = new PictureDrawable(svg.renderToPicture());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,21 +242,17 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     private void playVideo() {
         try {
-            /*pause = false;
-            stop = false;*/
 
-
-            //path = editText.getText().toString();
             if (mediaPlayer != null) mediaPlayer.release();
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(path);
-            //mediaPlayer.prepare();
+
             mediaPlayer.prepareAsync(); //Si streaming
             mediaPlayer.setOnBufferingUpdateListener(this);
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            //mediaPlayer.seekTo(savePos);
+
             Log.d("POSICION", "posicion: " + savePos);
 
             logTextView.setVisibility(View.VISIBLE);
@@ -255,6 +266,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public void onMapReady(GoogleMap retMap) {
 
         map = retMap;
+
+
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -292,28 +305,37 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
         marcadorColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location posicion1 = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location posicion2 = manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
         LatLng pos = null;
-        if (posicion1 != null && posicion2 == null)
-            pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
-        else if (posicion1 == null && posicion2 != null)
-            pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
-        else if (posicion1 != null && posicion2 != null)
-            if (posicion1.getAccuracy() < posicion2.getAccuracy() || posicion1.getTime() > posicion2.getTime())
+
+        if (paisIntencion == null || paisIntencion.isEmpty()) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            Location posicion1 = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location posicion2 = manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+
+            if (posicion1 != null && posicion2 == null)
                 pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
-            else pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
+            else if (posicion1 == null && posicion2 != null)
+                pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
+            else if (posicion1 != null && posicion2 != null)
+                if (posicion1.getAccuracy() < posicion2.getAccuracy() || posicion1.getTime() > posicion2.getTime())
+                    pos = new LatLng(posicion1.getLatitude(), posicion1.getLongitude());
+                else pos = new LatLng(posicion2.getLatitude(), posicion2.getLongitude());
+
+        } else {
+
+            app.getModuloPais().getLatLng(paisIntencion, this);
+        }
+
         if (pos != null) {
 
             datosPais(pos);
@@ -409,7 +431,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        manejador.removeUpdates(this);
+        if (paisIntencion != null && !paisIntencion.isEmpty())
+            manejador.removeUpdates(this);
     }
 
 
@@ -421,9 +444,11 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             guardarEstado.putString("ruta", path);
             guardarEstado.putInt("posicion", savePos);
             guardarEstado.putInt("estado", estado);
-            guardarEstado.putString("pais", paisActual);
+
 
         }
+        guardarEstado.putString("pais", paisActual);
+        guardarEstado.putString("paisIntencion", paisIntencion);
     }
 
     @Override
@@ -435,7 +460,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             path = recEstado.getString("ruta", "");
             savePos = recEstado.getInt("posicion", 0);
             estado = recEstado.getInt("estado", ESTADO_NO_INICIADO);
-            paisActual = recEstado.getString("pais","");
+            paisActual = recEstado.getString("pais", "");
+            paisIntencion = recEstado.getString("paisIntencion", "");
 
             Log.d("RESTORE", "VALORES_RECUPERADOS" + path + " " + savePos + " " + paisActual + " " + estado);
 
@@ -448,12 +474,18 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
 
     private void verificarPermisosGPS() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                ) {
-            registraSensoresGPS_RED();
-            // Snackbar.make(layout, "PERMISOS GPS OK", Snackbar.LENGTH_SHORT).show();
+
+        if (paisIntencion == null || paisIntencion.isEmpty()) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                registraSensoresGPS_RED();
+                // Snackbar.make(layout, "PERMISOS GPS OK", Snackbar.LENGTH_SHORT).show();
+            } else {
+                solicitarPermisosGPS();
+            }
         } else {
-            solicitarPermisosGPS();
+
+            registraSensoresGPS_RED();
         }
     }
 
@@ -496,7 +528,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
             if (map != null) {
                 LatLng posicion = new LatLng(mejorLocaliz.getLatitude(), localiz.getLongitude());
-
 
 
                 //Log.d("posicionActual=", posicionActual.toString());
@@ -555,21 +586,24 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     }
 
     private void registraSensoresGPS_RED() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            manejador.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5 * 1000, 50, this);
-        }
-        if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            manejador.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5 * 1000, 100, this);
+
+        if (paisIntencion == null || !paisIntencion.isEmpty()) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                manejador.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5 * 1000, 50, this);
+            }
+            if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                manejador.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5 * 1000, 100, this);
+            }
         }
 
         if (map == null) {

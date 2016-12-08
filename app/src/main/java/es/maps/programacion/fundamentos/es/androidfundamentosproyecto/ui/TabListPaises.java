@@ -61,6 +61,7 @@ public class TabListPaises extends Fragment {
                 Pais pais = paises.get(pos);
 
                 Intent intent = new Intent(getContext(), ActividadMapa.class);
+                intent.putExtra("idPais", pais.getIdPais());
                 startActivity(intent);
             }
         });

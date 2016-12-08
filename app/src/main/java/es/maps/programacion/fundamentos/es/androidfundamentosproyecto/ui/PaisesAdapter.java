@@ -51,13 +51,13 @@ public class PaisesAdapter extends RecyclerView.Adapter<PaisesAdapter.ViewHolder
             svg = SVG.getFromAsset(context.getAssets(), "flags/" + imagen);
             drawable = new PictureDrawable(svg.renderToPicture());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         if (drawable != null)
             bandera.setImageDrawable(drawable);
         else {
-            System.out.println("NO_ICONO:" + imagen);
+            //System.out.println("NO_ICONO:" + imagen);
             bandera.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_icon));
         }
     }

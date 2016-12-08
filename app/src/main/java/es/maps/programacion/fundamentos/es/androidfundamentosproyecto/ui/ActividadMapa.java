@@ -9,11 +9,20 @@ import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
  * Created by jvg63 on 08/12/2016.
  */
 public class ActividadMapa extends AppCompatActivity {
+
+    private String idPais;
+
+    public String getIdPais() {
+        return idPais;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-                setContentView(R.layout.actividad_mapa);
+        if (getIntent() != null)
+            idPais = getIntent().getExtras().getString("idPais", "");
+        setContentView(R.layout.actividad_mapa);
     }
 
 }
