@@ -48,7 +48,8 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknife"
     compile "com.android.support:preference-v7:$rootProject.ext.supportLibraryVersion"
     
-    compile 'com.github.bigfishcat.android:svg-android:2.0.8'
+    //compile 'com.github.bigfishcat.android:svg-android:2.0.8'
+    compile 'com.caverock:androidsvg:1.2.1'
     testCompile 'junit:junit:4.12'
 }
 

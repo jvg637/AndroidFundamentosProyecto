@@ -68,7 +68,7 @@
      x="0"
      y="0" />
   <g
-     clip-path="urlES(#border)"
+     clip-path="url(#border)"
      transform="scale(5,5)"
      id="g9">
     <rect

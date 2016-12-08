@@ -18,7 +18,7 @@
 
         <uses-feature android:name="android.hardware.location.gps" />
 
-        <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.login.LoginActivity"></activity>
+        <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.login.LoginActivity" />
         <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.ui.ActividadMapa"
             android:label="@string/main_activity_titulo_pestaña_mapa"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application.Main2Activityaaaaaaaaa"
+            android:label="@string/title_activity_main2_activityaaaaaaaaa"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

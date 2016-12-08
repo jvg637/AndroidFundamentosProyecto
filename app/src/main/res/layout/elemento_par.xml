@@ -1,54 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:background="@color/recyclerPar"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/id_pais"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/icono"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="match_parent"
-
-        android:src="@drawable/no_icon" />
-
-    <TextView
-        android:id="@+id/pais_es"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/icono"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/pais_en"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/pais_es"
-        android:layout_below="@id/pais_es"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/divisas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/icono"
-        android:text="@string/sinmoneda"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
-    <CheckBox
-        android:id="@+id/himno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/pais_en"
-        android:checked="false"
-        android:text="@string/recycler_himno"
-        android:textAppearance="?android:attr/checkboxStyle" />
-</RelativeLayout>
+    <include layout="@layout/content_elemento" />
+</LinearLayout>

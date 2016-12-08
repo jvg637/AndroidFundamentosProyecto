@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.caverock.androidsvg.SVG;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -36,10 +38,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGBuilder;
-
-import java.io.IOException;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application.MapsApplication;
@@ -104,6 +102,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             app = (MapsApplication) getContext().getApplicationContext();
 
             bandera = (ImageView) rootView.findViewById(R.id.bandera);
+            bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             txtPais = (TextView) rootView.findViewById(R.id.pais);
 
             txtMoneda = (TextView) rootView.findViewById(R.id.divisas);
@@ -175,18 +174,16 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     }
 
+
     public void asignaImagen(String imagen, ImageView bandera) {
         // Load and parse a SVG
         SVG svg = null;
         Drawable drawable = null;
         try {
-            svg = new SVGBuilder().readFromAsset(rootView.getContext().getAssets(), "flags/" + imagen).build();
+             svg = SVG.getFromAsset(rootView.getContext().getAssets(), "flags/" + imagen);
+             drawable = new PictureDrawable(svg.renderToPicture());
 
-
-            drawable = svg.getDrawable();
-
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
