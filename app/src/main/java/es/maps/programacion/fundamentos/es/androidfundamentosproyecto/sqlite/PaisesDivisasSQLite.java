@@ -36,17 +36,6 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
         // En caso de una nueva versión habría que actualizar las tablas
     }
 
-    /*@Override
-    public void guardarPuntuacion(int puntos, String nombre, long fecha) {
-        try {
-            SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("INSERT INTO puntuaciones VALUES ( null, " + puntos + ", '" + nombre + "', " + fecha + ")");
-            db.close();
-        } catch (SQLiteException es) {
-            Toast.makeText(context, "No se puede guardar puntuaciones.Debe eliminar la base de datos actual manualmente ya que está en la versión 2", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
     public Vector<Pais> listarPaises() {
         Vector<Pais> result = new Vector<Pais>();
         try {
@@ -54,13 +43,12 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
             /// Cursor cursor = db.rawQuery("SELECT puntos, nombre, fecha FROM " + "puntuaciones ORDER BY puntos DESC LIMIT " + cantidad, null);
 
             // REEMPLAZAR RAWQUERY POR QUERY
-            //String[] CAMPOS = {"ID_DIVISA", "ID_DIVISA2" , "DIVISA_ES" , "DIVISA_EN", "HIMNO", "ICONO"};
-            String[] CAMPOS = {"ID_PAIS",  "ID_PAIS_2" , "PAIS_EN" , "PAIS_ES" , "DIVISAS" , "HIMNO" , "ICON", "URL"};
+            String[] CAMPOS = {"ID_PAIS",  "ID_PAIS_2" , "PAIS_EN" , "PAIS_ES" , "DIVISAS" , "HIMNO" , "ICON", "URL_ES", "URL_EN"};
             Cursor cursor = db.query("paises", CAMPOS, null, null, null, null, null, null);
 
             while (cursor.moveToNext()) {
                 result.add(new Pais(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                        cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7)));
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8)));
             }
             cursor.close();
             db.close();
@@ -99,15 +87,13 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = getReadableDatabase();
             /// Cursor cursor = db.rawQuery("SELECT puntos, nombre, fecha FROM " + "puntuaciones ORDER BY puntos DESC LIMIT " + cantidad, null);
-
             // REEMPLAZAR RAWQUERY POR QUERY
-            //String[] CAMPOS = {"ID_DIVISA", "ID_DIVISA2" , "DIVISA_ES" , "DIVISA_EN", "HIMNO", "ICONO"};
-            String[] CAMPOS = {"ID_PAIS",  "ID_PAIS_2" , "PAIS_EN" , "PAIS_ES" , "DIVISAS" , "HIMNO" , "ICON", "URL"};
+            String[] CAMPOS = {"ID_PAIS",  "ID_PAIS_2" , "PAIS_EN" , "PAIS_ES" , "DIVISAS" , "HIMNO" , "ICON", "URL_ES","URL_EN"};
             Cursor cursor = db.query("paises", CAMPOS, "ID_PAIS=?", new String[]{idPais}, null, null, null, null);
 
             while (cursor.moveToNext()) {
                 pais = new Pais(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                        cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7));
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
             }
             cursor.close();
             db.close();
@@ -123,8 +109,6 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
 
         try {
             SQLiteDatabase db = getReadableDatabase();
-            /// Cursor cursor = db.rawQuery("SELECT puntos, nombre, fecha FROM " + "puntuaciones ORDER BY puntos DESC LIMIT " + cantidad, null);
-
             // REEMPLAZAR RAWQUERY POR QUERY
             String[] CAMPOS = {"ID_DIVISA", "ID_DIVISA2" , "DIVISA_ES" , "DIVISA_EN"};
             Cursor cursor = db.query("divisas", CAMPOS, "ID_DIVISA=?", new String[]{idDivisa}, null, null, null, null);

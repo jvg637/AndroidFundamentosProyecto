@@ -34,6 +34,7 @@ public class LatLngToPais {
     private final Context context;
     private String string; //Almacena puntuaciones en formato JSON
     private Pais pais =null;
+    private LatLng pos =null;
 
 
     public LatLngToPais(Context context) {
@@ -48,6 +49,8 @@ public class LatLngToPais {
 
     private final String TAG = LatLngToPais.class.getSimpleName();
 
+    private TabMapa tabMapa;
+
     private void showMessage(String msg) {
         //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Value is: " + msg);
@@ -55,96 +58,14 @@ public class LatLngToPais {
 
     public void getPais(LatLng pos, TabMapa tabMapa) {
 
+        this.pos = pos;
+        this.tabMapa = tabMapa;
+
         new MiTarea().execute(pos);
 
 
 
-        if (pais != null && pais.getIdPais().equals(tabMapa.paisActual))
-            return;
 
-        // Detiene la
-
-        if (tabMapa.mediaPlayer != null) {
-            if (tabMapa.estado == tabMapa.ESTADO_PLAY)
-                tabMapa.mediaPlayer.stop();
-
-            tabMapa.mediaPlayer.release();
-
-            tabMapa.estado = tabMapa.ESTADO_NO_INICIADO;
-        }
-
-        if (pais != null)
-            tabMapa.paisActual = pais.getIdPais();
-        else
-            tabMapa.paisActual = null;
-
-        if (pais != null) {
-            if (pais.getHimno() != null && !pais.getHimno().isEmpty()) {
-
-
-                tabMapa.showPlayer();
-                tabMapa.path = pais.getHimno();
-            } else {
-                tabMapa.hidePlayer();
-                tabMapa.path = "";
-            }
-
-            tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(pos).icon(tabMapa.marcadorColor));
-            tabMapa.posicionActual.setTitle(pais.getPaisES() + "-" + pais.getIdPais());
-            tabMapa.posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
-
-            tabMapa.url = pais.getUrl();
-
-            tabMapa.map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
-
-            tabMapa.asignaImagen(pais.getIdPais2() + ".svg", tabMapa.bandera);
-
-            int tamanyo = pais.getPaisES().length();
-            float fontSize = 0.0f;
-            if (tamanyo >= 30)
-                fontSize = 10;
-            else if (tamanyo >= 20)
-                fontSize = 12;
-            else if (tamanyo >= 10)
-                fontSize = 15;
-            else
-                fontSize = 25;
-
-            tabMapa.txtPais.setTextSize(TypedValue.COMPLEX_UNIT_SP, (fontSize));
-            tabMapa.txtPais.setText(pais.getPaisES());
-            String divisas[] = pais.getDivisas().split("-");
-
-            String txtAuxDiv = "";
-
-            if (pais.getDivisas() != null && !pais.getDivisas().isEmpty()) {
-                PaisesDivisasSQLite pd = new PaisesDivisasSQLite(context);
-
-
-                for (int i = 0; i < divisas.length; i++) {
-
-                    //txtAuxDiv+=pd.getDivisa(divisas[i]).getDivisaES()+"\n";
-                    txtAuxDiv += "\t" + divisas[i] + "\n";
-                }
-                tabMapa.txtMoneda.setText("Moneda/s:\n" + txtAuxDiv);
-
-            } else {
-                tabMapa.txtMoneda.setText(context.getString(R.string.sinmoneda));
-
-            }
-
-
-        } else {
-            tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(pos).icon(tabMapa.marcadorColor));
-            tabMapa.posicionActual.setTitle("Unnamed");
-            tabMapa.posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
-            tabMapa.map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
-
-            tabMapa.bandera.setImageDrawable(ContextCompat.getDrawable(tabMapa.getActivity(), R.drawable.no_icon));
-            tabMapa.hidePlayer();
-            tabMapa.path = "";
-            tabMapa.txtPais.setText(context.getResources().getString(R.string.sinpais));
-            tabMapa.txtMoneda.setText(context.getResources().getString(R.string.sinmoneda));
-        }
     }
 
     class MiTarea extends AsyncTask<LatLng, Integer, Pais> {
@@ -184,6 +105,98 @@ public class LatLngToPais {
             //progreso.dismiss();
             pais = res;
             //salida.append(res + "\n");
+
+            /*if (pais != null && pais.getIdPais().equals(tabMapa.paisActual))
+                return;*/
+
+            // Detiene la
+
+            showMessage((pais!=null?pais.getIdPais():"")+ " " + tabMapa.paisActual);
+            if (pais != null && !pais.getIdPais().equals(tabMapa.paisActual) && tabMapa.mediaPlayer != null) {
+                if (tabMapa.estado == tabMapa.ESTADO_PLAY)
+                    tabMapa.mediaPlayer.stop();
+
+                tabMapa.mediaPlayer.release();
+
+                tabMapa.estado = tabMapa.ESTADO_NO_INICIADO;
+            }
+
+            if (pais != null)
+                tabMapa.paisActual = pais.getIdPais();
+            else
+                tabMapa.paisActual = null;
+
+            if (tabMapa.posicionActual != null) {
+                tabMapa.posicionActual.remove();
+            }
+
+            if (pais != null) {
+                if (pais.getHimno() != null && !pais.getHimno().isEmpty()) {
+
+
+                    tabMapa.showPlayer();
+                    tabMapa.path = pais.getHimno();
+                } else {
+                    tabMapa.hidePlayer();
+                    tabMapa.path = "";
+                }
+
+                tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(pos).icon(tabMapa.marcadorColor));
+                tabMapa.posicionActual.setTitle(pais.getPaisES() + "-" + pais.getIdPais());
+                tabMapa.posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
+
+                tabMapa.url = pais.getUrlES();
+
+                tabMapa.map.moveCamera(CameraUpdateFactory.newLatLng(pos));
+
+                tabMapa.asignaImagen(pais.getIcono(), tabMapa.bandera);
+
+                int tamanyo = pais.getPaisES().length();
+                float fontSize = 0.0f;
+                if (tamanyo >= 30)
+                    fontSize = 10;
+                else if (tamanyo >= 20)
+                    fontSize = 12;
+                else if (tamanyo >= 10)
+                    fontSize = 15;
+                else
+                    fontSize = 25;
+
+                tabMapa.txtPais.setTextSize(TypedValue.COMPLEX_UNIT_SP, (fontSize));
+                tabMapa.txtPais.setText(pais.getPaisES());
+                String divisas[] = pais.getDivisas().split("-");
+
+                String txtAuxDiv = "";
+
+                if (pais.getDivisas() != null && !pais.getDivisas().isEmpty()) {
+                    PaisesDivisasSQLite pd = new PaisesDivisasSQLite(context);
+
+
+                    for (int i = 0; i < divisas.length; i++) {
+
+                        //txtAuxDiv+=pd.getDivisa(divisas[i]).getDivisaES()+"\n";
+                        txtAuxDiv += "\t" + divisas[i] + "\n";
+                    }
+                    tabMapa.txtMoneda.setText("Moneda/s:\n" + txtAuxDiv);
+
+                } else {
+                    tabMapa.txtMoneda.setText(context.getString(R.string.sinmoneda));
+
+                }
+
+
+            } else {
+                tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(pos).icon(tabMapa.marcadorColor));
+                tabMapa.posicionActual.setTitle("Unnamed");
+                tabMapa.posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
+                tabMapa.map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
+
+                tabMapa.bandera.setImageDrawable(ContextCompat.getDrawable(tabMapa.getActivity(), R.drawable.no_icon));
+                tabMapa.hidePlayer();
+                tabMapa.path = "";
+                tabMapa.txtPais.setText(context.getResources().getString(R.string.sinpais));
+                tabMapa.txtMoneda.setText(context.getResources().getString(R.string.sinmoneda));
+            }
         }
 
 

@@ -11,18 +11,18 @@ public class Pais {
     private  String divisas;
     private  String himno;
     private  String icono;
+    private  String urlES;
+    private  String urlEN;
 
-    public String getUrl() {
-        return url;
+    public String getUrlES() {
+        return urlES;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrlES(String urlES) {
+        this.urlES = urlES;
     }
 
-    private  String url;
-
-    public Pais(String idPais, String idPais2, String paisEN, String paisES, String divisas, String himno, String icono, String url) {
+    public Pais(String idPais, String idPais2, String paisEN, String paisES, String divisas, String himno, String icono, String urlES, String urlEN) {
         this.idPais = idPais;
         this.idPais2 = idPais2;
         this.paisEN = paisEN;
@@ -30,7 +30,8 @@ public class Pais {
         this.divisas = divisas;
         this.himno = himno;
         this.icono = icono;
-        this.url = url;
+        this.urlES = urlES;
+        this.urlEN = urlEN;
     }
 
     public String getIcono() {
@@ -87,5 +88,13 @@ public class Pais {
 
     public void setHimno(String himno) {
         this.himno = himno;
+    }
+
+    public String getUrlEN() {
+        return urlEN;
+    }
+
+    public void setUrlEN(String urlEN) {
+        this.urlEN = urlEN;
     }
 }

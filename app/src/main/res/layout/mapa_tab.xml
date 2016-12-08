@@ -51,10 +51,9 @@
             android:textSize="10sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="top"
             android:orientation="vertical"
             android:paddingLeft="110dp"
             android:paddingRight="110dp">
@@ -64,11 +63,12 @@
                 android:id="@+id/ButonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+
 
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:visibility="gone"
                     android:id="@+id/play"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -77,6 +77,7 @@
                     android:src="@drawable/play" />
 
                 <ImageButton
+                    android:visibility="gone"
                     android:id="@+id/pause"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -85,6 +86,7 @@
                     android:src="@drawable/pause" />
 
                 <ImageButton
+                    android:visibility="gone"
                     android:id="@+id/stop"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

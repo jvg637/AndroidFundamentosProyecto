@@ -6,4 +6,7 @@
 
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
+
+    <color name="recyclerImpar">#c1cfde</color>
+    <color name="recyclerPar">#c2efd6</color>
 </resources>

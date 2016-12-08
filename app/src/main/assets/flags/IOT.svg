@@ -16,10 +16,10 @@
 <use transform="translate(0,-199.01404)" xlink:href="#wave"/>
 <use transform="translate(0,-248.76752)" xlink:href="#wave"/>
 <rect fill="#FFF" width="300" height="152"/>
-<g clip-path="url(#cp2)">
+<g clip-path="urlES(#cp2)">
 <rect width="300" height="150" fill="#00247d"/>
 <path d="M0 0L300 150M300 0L0 150" stroke="#fff" stroke-width="30"/>
-<path d="M0 0L300 150M300 0L0 150" stroke="#cf142b" stroke-width="20" clip-path="url(#cp)"/>
+<path d="M0 0L300 150M300 0L0 150" stroke="#cf142b" stroke-width="20" clip-path="urlES(#cp)"/>
 <path d="M150 0V200M0 75H350" stroke="#fff" stroke-width="50"/>
 <path d="M150 0V200M0 75H350" stroke="#cf142b" stroke-width="30"/>
 </g>

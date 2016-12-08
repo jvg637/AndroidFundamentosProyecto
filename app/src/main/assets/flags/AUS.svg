@@ -11,7 +11,7 @@
 <g transform="scale(840)">
 <rect width="12" height="6" fill="#002776"/>
 <path d="M0,0 6,3M6,0 0,3" stroke="#fff" stroke-width="0.6"/>
-<path d="M0,0 6,3M6,0 0,3" stroke="#e00034" stroke-width="0.4" clip-path="url(#c)"/>
+<path d="M0,0 6,3M6,0 0,3" stroke="#e00034" stroke-width="0.4" clip-path="urlES(#c)"/>
 <path d="M3,0V3.5M0,1.5H7" stroke="#fff"/>
 <path d="M3,0V3.5M0,1.5H7" stroke="#e00034" stroke-width="0.6"/>
 <path d="M0,3H6V0H8V4H0z" fill="#002776"/>

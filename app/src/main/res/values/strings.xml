@@ -32,4 +32,13 @@
     <string name="permiso_OK">OK</string>
     <string name="sinpais">Indefinido</string>
     <string name="sinmoneda">Sin moneda</string>
+
+
+    <string name="pref_pais_origen">pais</string>
+    <string name="pref_pais_origen_sum">Seleccione su País</string>
+    <string name="pref_pais_origen_tit">Pais</string>
+    <string name="preferencias_configuracion">Configuración</string>
+    <string name="recycler_himno">Himno</string>
+    <string name="main_activity_titulo_pestaña_lista_paises">Paises</string>
+
 </resources>

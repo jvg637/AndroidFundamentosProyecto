@@ -2554,7 +2554,7 @@
            sodipodi:cy="145.57994"
            sodipodi:cx="113.49064"
            id="path83327"
-           style="opacity:0.25941401;fill:url(#radialGradient7200);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.337639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="opacity:0.25941401;fill:urlES(#radialGradient7200);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.337639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            sodipodi:type="arc" />
         <path
            style="fill:none;fill-opacity:1;stroke:#aaaaaa;stroke-width:494.03713989;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"

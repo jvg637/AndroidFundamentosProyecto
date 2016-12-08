@@ -2,6 +2,7 @@ package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.ui;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,7 +21,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -423,9 +423,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             //int pos = mediaPlayer.getCurrentPosition();
             guardarEstado.putString("ruta", path);
             guardarEstado.putInt("posicion", savePos);
-            guardarEstado.putBoolean("pause", pause);
-            guardarEstado.putBoolean("stop", stop);
             guardarEstado.putInt("estado", estado);
+            guardarEstado.putString("pais", paisActual);
 
         }
     }
@@ -438,11 +437,10 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         if (recEstado != null) {
             path = recEstado.getString("ruta", "");
             savePos = recEstado.getInt("posicion", 0);
-            pause = recEstado.getBoolean("pause", false);
-            stop = recEstado.getBoolean("stop", false);
             estado = recEstado.getInt("estado", ESTADO_NO_INICIADO);
+            paisActual = recEstado.getString("pais","");
 
-            Log.d("RESTORE", "VALORES_RECUPERADOS" + path + " " + savePos + " " + pause + " " + " " + stop + " " + estado);
+            Log.d("RESTORE", "VALORES_RECUPERADOS" + path + " " + savePos + " " + paisActual + " " + estado);
 
         }
     }
@@ -502,9 +500,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             if (map != null) {
                 LatLng posicion = new LatLng(mejorLocaliz.getLatitude(), localiz.getLongitude());
 
-                if (posicionActual != null) {
-                    posicionActual.remove();
-                }
+
 
                 //Log.d("posicionActual=", posicionActual.toString());
 
