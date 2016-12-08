@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -38,7 +36,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGBuilder;
 
@@ -46,8 +43,6 @@ import java.io.IOException;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application.MapsApplication;
-import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
-import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.sqlite.pojo.Pais;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -57,22 +52,22 @@ import static android.content.Context.LOCATION_SERVICE;
 public class TabMapa extends Fragment implements OnMapReadyCallback, LocationListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
     private static final long DOS_MINUTOS = 120 * 1000;
-    private final int ESTADO_PLAY = 0;
+    public final int ESTADO_PLAY = 0;
     private final int ESTADO_STOP = 1;
     private final int ESTADO_PAUSE = 2;
-    private final int ESTADO_NO_INICIADO = 3;
+    public final int ESTADO_NO_INICIADO = 3;
     private final int ESTADO_FINALIZADO = 4;
 
     private View layout;
-    private GoogleMap map;
+    public GoogleMap map;
     private LocationManager manejador;
     private Location mejorLocaliz = null;
 
     private String telefono, mensaje;
     private int tipoNotificacion = 0;
 
-    private Marker posicionActual = null;
-    private BitmapDescriptor marcadorColor = null;
+    public Marker posicionActual = null;
+    public BitmapDescriptor marcadorColor = null;
 
     private FragmentActivity myContext;
     private View rootView;
@@ -81,21 +76,21 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
 
     // Reproductor
-    private MediaPlayer mediaPlayer;
+    public MediaPlayer mediaPlayer;
 
 
     private ImageButton bPlay, bPause, bStop, bLog;
     private TextView logTextView;
     private boolean pause, stop;
-    private String path = "";
+    public String path = "";
     private int savePos = 0;
-    private int estado;
-    private ImageView bandera;
-    private TextView txtPais;
-    private TextView txtMoneda;
+    public int estado;
+    public ImageView bandera;
+    public TextView txtPais;
+    public TextView txtMoneda;
 
-    private String paisActual = "";
-    private String url="";
+    public String paisActual = "";
+    public String url = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -180,7 +175,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     }
 
-    private void asignaImagen(String imagen, ImageView bandera) {
+    public void asignaImagen(String imagen, ImageView bandera) {
         // Load and parse a SVG
         SVG svg = null;
         Drawable drawable = null;
@@ -263,15 +258,16 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public void onMapReady(GoogleMap retMap) {
 
         map = retMap;
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
+            public void onInfoWindowClick(Marker marker) {
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                getActivity().startActivity(i);
+                if (url != null && !url.isEmpty()) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    getActivity().startActivity(i);
+                }
 
-                return true;
             }
         });
 
@@ -331,107 +327,18 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     private void datosPais(LatLng pos) {
 
 
-        Pais pais = app.getModuloPais().getPais(pos);
-
-        if (pais!=null && pais.getIdPais().equals(paisActual))
-            return;
-
-        // Detiene la
-
-        if (mediaPlayer != null) {
-            if (estado == ESTADO_PLAY)
-                mediaPlayer.stop();
-
-            mediaPlayer.release();
-
-            estado = ESTADO_NO_INICIADO;
-        }
-
-        if (pais!=null)
-            paisActual = pais.getIdPais();
-        else
-            paisActual=null;
-
-        if (pais != null) {
-            if (pais.getHimno() != null && !pais.getHimno().isEmpty()) {
+        app.getModuloPais().getPais(pos, this);
 
 
-                showPlayer();
-                path = pais.getHimno();
-            } else {
-                hidePlayer();
-                path = "";
-            }
-
-            posicionActual = map.addMarker(new MarkerOptions().position(pos).icon(marcadorColor));
-            posicionActual.setTitle(pais.getPaisES() + "-" + pais.getIdPais());
-            posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
-
-            url = pais.getUrl();
-
-
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
-
-            asignaImagen(pais.getIdPais2() + ".svg", bandera);
-
-            int tamanyo = pais.getPaisES().length();
-            float fontSize = 0.0f;
-            if (tamanyo >=30)
-                fontSize = 10;
-            else if (tamanyo >= 20)
-                fontSize = 12;
-            else if (tamanyo >=10)
-                fontSize = 15;
-            else
-                fontSize = 25;
-
-            txtPais.setTextSize(TypedValue.COMPLEX_UNIT_SP, (fontSize));
-            txtPais.setText(pais.getPaisES());
-            String divisas[] = pais.getDivisas().split("-");
-
-            String txtAuxDiv = "";
-
-            if (pais.getDivisas()!=null && !pais.getDivisas().isEmpty()) {
-                PaisesDivisasSQLite pd = new PaisesDivisasSQLite(getContext());
-
-
-
-                for (int i=0; i<divisas.length;i++) {
-
-                    //txtAuxDiv+=pd.getDivisa(divisas[i]).getDivisaES()+"\n";
-                    txtAuxDiv+="\t" + divisas[i]+"\n";
-                }
-                txtMoneda.setText("Moneda/s:\n" + txtAuxDiv);
-
-            }
-            else {
-                txtMoneda.setText(getString(R.string.sinmoneda));
-
-            }
-
-
-
-        } else {
-            posicionActual = map.addMarker(new MarkerOptions().position(pos).icon(marcadorColor));
-            posicionActual.setTitle("Unnamed");
-            posicionActual.setSnippet("(" + pos.latitude + "," + pos.longitude + ")");
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 10));
-
-            bandera.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.no_icon));
-            hidePlayer();
-            path = "";
-            txtPais.setText(getResources().getString(R.string.sinpais));
-            txtMoneda.setText(getResources().getString(R.string.sinmoneda));
-        }
     }
 
-    private void showPlayer() {
+    public void showPlayer() {
         bPause.setVisibility(View.VISIBLE);
         bPlay.setVisibility(View.VISIBLE);
         bStop.setVisibility(View.VISIBLE);
     }
 
-    private void hidePlayer() {
+    public void hidePlayer() {
         bPause.setVisibility(View.GONE);
         bPlay.setVisibility(View.GONE);
         bStop.setVisibility(View.GONE);
@@ -703,7 +610,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             }
         }).setNegativeButton("Cancelar", null).show();
     }
-
 
 
 }
