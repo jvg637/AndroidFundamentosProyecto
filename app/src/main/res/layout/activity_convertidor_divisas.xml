@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_convertidor_divisas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib.divisas.ConvertidorDivisas">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etDivisaOrigen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:selectAllOnFocus="true"
+            android:maxLength="6"
+            android:hint="Ori" />
+
+        <ListView
+            android:id="@+id/lvDvisaOrigen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="@drawable/bg_key" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etDivisaDestino"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:selectAllOnFocus="true"
+            android:maxLength="6"
+            android:hint="Dest" />
+
+        <ListView
+            android:id="@+id/lvDvisaDestino"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="@drawable/bg_key" />
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/editTextImporteOrigen"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="0.1"
+        android:hint="Importe A Convertir"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/editTextImporteDestino"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        />
+
+    <Button
+        android:id="@+id/btnCalcularTipoCambio"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.15"
+        android:text="Convertir" />
+
+    </LinearLayout>
