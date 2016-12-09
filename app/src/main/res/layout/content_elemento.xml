@@ -13,6 +13,7 @@ android:paddingTop="4dp">
     android:src="@drawable/no_icon" />
 
 <TextView
+    android:layout_marginLeft="5dp"
     android:id="@+id/pais_es"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -32,17 +33,20 @@ android:paddingTop="4dp">
     android:id="@+id/divisas"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/icono"
+    android:layout_below="@id/pais_es"
+   android:layout_alignLeft="@+id/pais_es"
     android:text="@string/sinmoneda"
      />
 
 <CheckBox
     android:id="@+id/himno"
+    android:clickable="false"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_below="@id/pais_es"
-    android:enabled="false"
-    android:text="@string/recycler_himno" />
+
+    android:text="@string/recycler_himno"
+    android:checked="false" />
 
 </RelativeLayout>

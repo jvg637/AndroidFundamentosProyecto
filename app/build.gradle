@@ -21,12 +21,12 @@ android {
                     'proguard-rules.pro'
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
-            manifestPlaceholders = [google_map_key: "AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
+            manifestPlaceholders = [google_map_key: "AIzaSyACnCrRoTvY3NuT52T4wztfzHsjyn1aXU0"]
         }
         debug {
             resValue "string", "facebook_application_id",
                     project.property('facebook_application_id')
-            manifestPlaceholders = [google_map_key: "AIzaSyAUFDzgL5HvzzCxu7CUrYETEa7KRyxLkgQ"]
+            manifestPlaceholders = [google_map_key: "AIzaSyACnCrRoTvY3NuT52T4wztfzHsjyn1aXU0"]
         }
 
     }
