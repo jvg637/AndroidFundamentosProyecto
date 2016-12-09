@@ -271,8 +271,7 @@ public class TabCalculadora extends Fragment {
         }
         else
         if (requestCode == NUEVA_DIVISA_DES && resultCode ==RESULT_OK) {
-
-
+            btnDes.setText(data.getExtras().getString("moneda"));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
