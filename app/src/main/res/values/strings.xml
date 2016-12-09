@@ -41,6 +41,9 @@
     <string name="recycler_himno">Himno</string>
     <string name="main_activity_titulo_pestaña_lista_paises">Paises</string>
     <string name="divisa_tab_mapa">Moneda/s</string>
+    <string name="main_activity_titulo_preferences">Configuración</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="seleccion_divisa_aceptar">Seleccionar</string>
 
 
 </resources>

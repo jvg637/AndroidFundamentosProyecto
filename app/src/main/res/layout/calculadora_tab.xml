@@ -124,13 +124,34 @@
                     android:text="@string/digito_9_calculadora" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn0"
-                style="@style/EstiloBotonCalculadoraDigito"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="@string/digito_0_calculadora"
-                android:text="@string/digito_0_calculadora" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/EstiloBotonCalculadoraDigito"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="66"
+
+                    android:id="@+id/btn0"
+                    android:tag="@string/digito_0_calculadora"
+                    android:text="@string/digito_0_calculadora" />
+
+                <Button
+                    style="@style/EstiloBotonCalculadoraDigito"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33"
+                    android:id="@+id/btnPunto"
+                    android:tag="@string/digito_PUNTO_calculadora"
+                    android:text="@string/digito_PUNTO_calculadora"
+
+
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
 
@@ -177,17 +198,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnPunto"
             style="@style/EstiloBotonCalculadoraDigito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="@string/digito_PUNTO_calculadora"
-            android:text="@string/digito_PUNTO_calculadora"
+            android:id="@+id/btnMenos"
+            android:tag="@string/digito_MENOS_calculadora"
+            android:text="@string/digito_MENOS_calculadora"
 
             />
 
         <Button
-            android:id="@+id/btnPTS"
+            android:id="@+id/btnOri"
             style="@style/EstiloBotonCalculadoraDigito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -196,7 +217,7 @@
             android:text="@string/digito_PTS_calculadora" />
 
         <Button
-            android:id="@+id/btnEUR"
+            android:id="@+id/btnDES"
             style="@style/EstiloBotonCalculadoraDigito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,15 +225,6 @@
             android:tag="@string/digito_EUR_calculadora"
             android:text="@string/digito_EUR_calculadora" />
 
-        <Button
-            android:id="@+id/btnMenos"
-            style="@style/EstiloBotonCalculadoraDigito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tag="@string/digito_MENOS_calculadora"
-            android:text="@string/digito_MENOS_calculadora"
-
-            />
 
     </LinearLayout>
 </LinearLayout>
