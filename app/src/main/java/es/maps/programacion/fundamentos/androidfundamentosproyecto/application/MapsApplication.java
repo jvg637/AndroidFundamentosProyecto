@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.LatLngToPais;
 
 /**
@@ -22,6 +24,15 @@ public class MapsApplication extends Application {
 
     public LatLngToPais getModuloPais() {
         return moduloPais;
+    }
+
+
+    public boolean esIdiomaIngles() {
+        return  Locale.getDefault().getLanguage().equals("en");
+    }
+
+    public boolean esIdiomaEspanyol() {
+        return  Locale.getDefault().getLanguage().equals("es");
     }
 
     @Override
