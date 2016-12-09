@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application.MapsApplication"
+        android:name=".application.MapsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,22 +18,21 @@
 
         <uses-feature android:name="android.hardware.location.gps" />
 
-        <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.login.LoginActivity" />
-        <activity android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.MainActivity">
+        <activity android:name=".login.LoginActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
         <activity
-            android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.ui.ActividadMapa"
+            android:name=".ui.ActividadMapa"
             android:label="@string/main_activity_titulo_pestaña_mapa"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application.Main2Activityaaaaaaaaa"
-            android:label="@string/title_activity_main2_activityaaaaaaaaa"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>

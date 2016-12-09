@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.es.androidfundamentosproyecto.application;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.application;
 
 import android.app.Application;
 
@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import es.maps.programacion.fundamentos.es.androidfundamentosproyecto.lib.paises.LatLngToPais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.LatLngToPais;
 
 /**
  * Created by jvg63 on 03/12/2016.

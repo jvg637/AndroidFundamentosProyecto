@@ -5,7 +5,7 @@
 </clipPath>
 <rect width="900" height="475" fill="#009543"/>
 <rect width="900" height="237.5" fill="#d21034"/>
-<g clip-path="urlES(#c)">
+<g clip-path="url(#c)">
 <path d="M0,0 420,195H900V280H420L0,475" fill="#000" stroke="#fdce12" stroke-width="110"/>
 <path d="M0,0 420,195H900M900,280H420L0,475" fill="none" stroke="#000" stroke-width="60"/>
 </g>

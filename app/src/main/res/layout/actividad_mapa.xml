@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/headlines_fragment"
-        android:name="es.maps.programacion.fundamentos.es.androidfundamentosproyecto.ui.TabMapa"
+        android:name="es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.TabMapa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
   />
