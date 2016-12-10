@@ -360,7 +360,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     public void setUpMap() {
 
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         map.getUiSettings().setCompassEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setCompassEnabled(true);

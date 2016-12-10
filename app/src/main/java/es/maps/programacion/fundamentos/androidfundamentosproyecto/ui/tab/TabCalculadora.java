@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -108,15 +109,30 @@ public class TabCalculadora extends Fragment {
 
             Pais pais = db.getPais(paisDefault);
 
-            String primeraDivsa = pais.getDivisas().split("-")[0];
+            String primeraDivisa = pais.getDivisas().split("-")[0];
 
-            btnOri.setText(primeraDivsa);
+            btnOri.setText(primeraDivisa);
 
-            if (primeraDivsa.equals("USD")) {
-                btnDes.setText("EUR");
+            if (primeraDivisa.equals(btnDes.getText().toString())) {
+
+                String divisaDestinoNueva = "";
+
+                if (primeraDivisa.equals("USD")) {
+                    divisaDestinoNueva = "EUR";
+                } else {
+                    divisaDestinoNueva = "USD";
+                }
+                Toast.makeText(getContext(), "Divisas Iguales,... cambiando destino a " + divisaDestinoNueva, Toast.LENGTH_SHORT).show();
+
+                btnCNV.setText(primeraDivisa + " --> " + divisaDestinoNueva);
+                btnCNV2.setText(divisaDestinoNueva + " --> " + primeraDivisa);
+
+                btnDes.setText(divisaDestinoNueva);
+            } else {
+
+                btnCNV.setText(primeraDivisa + btnCNV.getText().toString().substring(3));
+                btnCNV2.setText(btnCNV2.getText().toString().substring(0, 8) + primeraDivisa);
             }
-
-            btnCNV.setText(primeraDivsa + btnCNV.getText().toString().substring(3));
         }
 
 
@@ -187,8 +203,7 @@ public class TabCalculadora extends Fragment {
             } else if (tag.equals(getResources().getString(R.string.digito_MAS_calculadora)) ||
                     tag.equals(getResources().getString(R.string.digito_MENOS_calculadora)) ||
                     tag.equals(getResources().getString(R.string.digito_POR_calculadora)) ||
-                    tag.equals(getResources().getString(R.string.digito_DIV_calculadora)))
-                {
+                    tag.equals(getResources().getString(R.string.digito_DIV_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0d ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0d;
                 formateaPantalla();
             } else if (tag.equals(getResources().getString(R.string.digito_IGUAL_calculadora))) {
@@ -247,9 +262,9 @@ public class TabCalculadora extends Fragment {
         tagPrevia = tag;
 
         if (this.acumulador % 1f == 0f) {
-            actualizaPantalla(tagPrevia, String.format("%d", (this.acumulador.longValue())).replace(",","."));
+            actualizaPantalla(tagPrevia, String.format("%d", (this.acumulador.longValue())).replace(",", "."));
         } else {
-            actualizaPantalla(tagPrevia, String.format("%.2f", (this.acumulador)).replace(",","."));
+            actualizaPantalla(tagPrevia, String.format("%.2f", (this.acumulador)).replace(",", "."));
         }
     }
 
@@ -284,9 +299,11 @@ public class TabCalculadora extends Fragment {
         try {
             double tipoDeCambio = -1;
 
-            new TareaTipoCambio().execute(String.valueOf(opcion),btnDes.getText().toString(), btnOri.getText().toString());
+            if (Double.parseDouble(pantallaCalculadora.getText().toString()) == 0) {
+                Toast.makeText(getContext(), R.string.tab_calculadora_error_importe_a_convertir_0, Toast.LENGTH_SHORT).show();
+            }
 
-            //Toast.makeText(this, "" + importe1, Toast.LENGTH_SHORT).show();
+            new TareaTipoCambio().execute(String.valueOf(opcion), btnDes.getText().toString(), btnOri.getText().toString());
 
 
         } catch (Exception ex) {
@@ -299,10 +316,9 @@ public class TabCalculadora extends Fragment {
     private void actualizaTipoCambio(double tipoDeCambio) {
         pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
 
-        flagNuevoNumero=true;
-        flagDecimalIntroducido=false;
+        flagNuevoNumero = true;
+        flagDecimalIntroducido = false;
     }
-
 
 
     class TareaTipoCambio extends AsyncTask<String, Integer, Double> {
@@ -329,15 +345,14 @@ public class TabCalculadora extends Fragment {
 
         @Override
         protected Double doInBackground(String... n) {
-            double tipoDeCambio=-1;
+            double tipoDeCambio = -1;
 
             publishProgress(5);
             if (n[0].equals("1")) {
 
                 tipoDeCambio = new DivisasSW().tipoCambio(n[1], n[2]);
 
-            }
-            else {
+            } else {
                 tipoDeCambio = new DivisasSW().tipoCambio(n[2], n[1]);
 
 
@@ -417,4 +432,30 @@ public class TabCalculadora extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle guardarEstado) {
+
+        guardarEstado.putString("pantalla", pantallaCalculadora.getText().toString());
+        guardarEstado.putDouble("sumando", sumando);
+        guardarEstado.putDouble("acumulador", acumulador);
+        guardarEstado.putString("tagPrevia", tagPrevia);
+
+        super.onSaveInstanceState(guardarEstado);
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle recEstado) {
+
+        super.onViewStateRestored(recEstado);
+
+        if (recEstado != null) {
+            pantallaCalculadora.setText(recEstado.getString("pantalla", "0"));
+            sumando = recEstado.getDouble("sumando", 0.0);
+            acumulador = recEstado.getDouble("acumulador", 0.0);
+            tagPrevia = recEstado.getString("tagPrevia", "");
+        }
+
+    }
 }

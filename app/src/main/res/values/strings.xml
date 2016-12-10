@@ -53,6 +53,7 @@
     <string name="digito_POR_calculadora">*</string>
     <string name="digito_DIV_calculadora">/</string>
     <string name="buscar">Buscar</string>
+    <string name="tab_calculadora_error_importe_a_convertir_0">Introduzca un importe distinto de 0</string>
 
 
 </resources>
