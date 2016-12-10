@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="preferencias_principal">
+    android:key="@string/preferencias_principal">
 
-    <EditTextPreference
-        android:defaultValue=""
-        android:inputType="text"
-        android:key="@string/pref_pais_origen"
-        android:summary="@string/pref_pais_origen_sum"
-        android:title="@string/pref_pais_origen_tit" />
+    <Preference android:title="@string/pref_pais_origen_tit" android:summary="@string/pref_pais_origen_sum">
+        <intent
+            android:action="@string/accion_pais_origen"
+        android:targetPackage="es.maps.programacion.fundamentos.androidfundamentosproyecto"
+        android:targetClass="es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.ConvertidorDivisas"/>
+    </Preference>
 
 </PreferenceScreen>

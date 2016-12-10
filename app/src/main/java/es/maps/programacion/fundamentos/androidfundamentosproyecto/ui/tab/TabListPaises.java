@@ -34,6 +34,8 @@ public class TabListPaises extends Fragment {
         // Obtiene Paises
         View view = inflater.inflate(R.layout.lista_paises, container, false);
         inicializaRecyclerView(view);
+
+        setHasOptionsMenu(true);
         return view;
 
     }

@@ -2,8 +2,10 @@ package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.ConvertidorDivisas;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.DivisasSW;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,10 +63,14 @@ public class TabCalculadora extends Fragment {
     Button btnPunto;
     @BindView(R.id.btnOri)
     Button btnOri;
-    @BindView(R.id.btnDES)
+    @BindView(R.id.btnDes)
     Button btnDes;
     @BindView(R.id.btnMenos)
     Button btnMenos;
+    @BindView(R.id.btnCNV)
+    Button btnCNV;
+    @BindView(R.id.btnCNV2)
+    Button btnCNV2;
 
     /*private TextView pantallaCalculadora;*/
 
@@ -75,6 +84,30 @@ public class TabCalculadora extends Fragment {
 
 
     private void inicializaComponentes() {
+
+        obtenerDivisaPaisPreferencias();
+    }
+
+    private void obtenerDivisaPaisPreferencias() {
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String paisDefault = pref.getString(getString(R.string.pref_pais_origen), "");
+
+        if (!paisDefault.isEmpty()) {
+            PaisesDivisasSQLite db = new PaisesDivisasSQLite(getContext());
+
+            Pais pais = db.getPais(paisDefault);
+
+            String primeraDivsa = pais.getDivisas().split("-")[0];
+
+            btnOri.setText(primeraDivsa);
+
+            if (primeraDivsa.equals("USD")) {
+                btnDes.setText("EUR");
+            }
+
+            btnCNV.setText(primeraDivsa + btnCNV.getText().toString().substring(3));
+        }
     }
 
 
@@ -84,6 +117,7 @@ public class TabCalculadora extends Fragment {
         ButterKnife.bind(this, view);
 
         inicializaComponentes();
+
 
         return view;
     }
@@ -98,8 +132,8 @@ public class TabCalculadora extends Fragment {
 
         if (flagNuevoNumero && !tag.equals(getResources().getString(R.string.digito_IGUAL_calculadora)) &&
                 !tag.equals(getResources().getString(R.string.digito_MAS_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_PTS_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_EUR_calculadora)) &&
+                !tag.equals(getResources().getString(R.string.digito_moneda_origen_calculadora)) &&
+                !tag.equals(getResources().getString(R.string.digito_moneda_destino_calculadora)) &&
                 !tag.equals(getResources().getString(R.string.digito_MENOS_calculadora))) {
             actualizaPantalla(tag, "");
         }
@@ -187,7 +221,7 @@ public class TabCalculadora extends Fragment {
                 //acumulador = 0d;
                 tagPrevia = "";
 
-            } else if (tag.equals(getResources().getString(R.string.digito_PTS_calculadora))) {
+            } else if (tag.equals(getResources().getString(R.string.digito_moneda_origen_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
                 actualizaPantalla(tag, String.format("%d", (Math.round(sumando * 166.386))));
 
@@ -195,7 +229,7 @@ public class TabCalculadora extends Fragment {
                 flagDecimalIntroducido = false;
                 tagPrevia = "";
 
-            } else if (tag.equals(getResources().getString(R.string.digito_EUR_calculadora))) {
+            } else if (tag.equals(getResources().getString(R.string.digito_moneda_destino_calculadora))) {
                 sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
                 actualizaPantalla(tag, String.format("%.2f", (sumando / 166.386f)));
 
@@ -243,8 +277,35 @@ public class TabCalculadora extends Fragment {
         }
     }
 
+    @OnClick({R.id.btnCNV})
+    void convierteDivisa() {
 
-    @OnClick({R.id.btnOri, R.id.btnDES})
+        convierteDivisa(1);
+    }
+
+    private void convierteDivisa(int opcion) {
+        try {
+            double tipoDeCambio=-1;
+            if (opcion == 1)
+                 tipoDeCambio = new DivisasSW().tipoCambio(btnOri.getText().toString(), btnDes.getText().toString());
+            else
+                 tipoDeCambio = new DivisasSW().tipoCambio( btnDes.getText().toString(),btnOri.getText().toString());
+
+            if (tipoDeCambio < 0) {
+                Toast.makeText(getContext(), "Ha ocurrido un error en el acceso al tipo de cambio!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //Toast.makeText(this, "" + importe1, Toast.LENGTH_SHORT).show();
+
+            pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
+        } catch (Exception ex) {
+            Toast.makeText(getContext(), "Ha ocurrido un error! Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @OnClick({R.id.btnOri, R.id.btnDes})
     public void seleccionaDivisa(View view) {
 
         Intent intent = new Intent(getContext(), ConvertidorDivisas.class);
@@ -266,13 +327,32 @@ public class TabCalculadora extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == NUEVA_DIVISA_ORI && resultCode ==RESULT_OK) {
-            btnOri.setText(data.getExtras().getString("moneda"));
+        if (requestCode == NUEVA_DIVISA_ORI && resultCode == RESULT_OK) {
+            String divisaRes = data.getExtras().getString("moneda");
+
+            if (!btnDes.getText().toString().isEmpty() && btnDes.getText().toString().equals(divisaRes)) {
+                Toast.makeText(getContext(), getString(R.string.error_divisas_iguales), Toast.LENGTH_SHORT).show();
+            } else {
+                btnOri.setText(divisaRes);
+                btnCNV.setText(divisaRes + btnCNV.getText().toString().substring(3));
+                btnCNV2.setText(btnCNV.getText().toString().substring(0, 8) + divisaRes);
+
+            }
+        } else if (requestCode == NUEVA_DIVISA_DES && resultCode == RESULT_OK)
+
+        {
+            String divisaRes = data.getExtras().getString("moneda");
+
+            if (!btnOri.getText().toString().isEmpty() && btnOri.getText().toString().equals(divisaRes)) {
+                Toast.makeText(getContext(), getString(R.string.error_divisas_iguales), Toast.LENGTH_SHORT).show();
+
+            } else {
+                btnCNV.setText(btnCNV.getText().toString().substring(0, 8) + divisaRes);
+                btnDes.setText(divisaRes);
+                btnCNV2.setText(divisaRes + btnCNV.getText().toString().substring(3));
+            }
         }
-        else
-        if (requestCode == NUEVA_DIVISA_DES && resultCode ==RESULT_OK) {
-            btnDes.setText(data.getExtras().getString("moneda"));
-        }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

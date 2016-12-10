@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MapaMundi Fundamentos</string>
 
+    <string name="preferencias_principal">preferencias_principal</string>
+
     <string name="main_activity_titulo_pestaña_boton_animado">Botón Animado</string>
     <string name="main_activity_titulo_pestaña_calculadora">Calculadora</string>
 
@@ -16,8 +18,8 @@
     <string name="digito_6_calculadora">6</string>
     <string name="digito_C_calculadora">CE</string>
     <string name="digito_IGUAL_calculadora">=</string>
-    <string name="digito_PTS_calculadora">Pts</string>
-    <string name="digito_EUR_calculadora">€</string>
+    <string name="digito_moneda_origen_calculadora">EUR</string>
+    <string name="digito_moneda_destino_calculadora">USD</string>
     <string name="digito_PUNTO_calculadora">.</string>
     <string name="calculadora_overflow">Err. OverFlow</string>
     <string name="tab_other_title">Otra</string>
@@ -37,6 +39,7 @@
     <string name="pref_pais_origen">pais</string>
     <string name="pref_pais_origen_sum">Seleccione su País</string>
     <string name="pref_pais_origen_tit">Pais</string>
+
     <string name="preferencias_configuracion">Configuración</string>
     <string name="recycler_himno">Himno</string>
     <string name="main_activity_titulo_pestaña_lista_paises">Paises</string>
@@ -44,6 +47,9 @@
     <string name="main_activity_titulo_preferences">Configuración</string>
     <string name="cancelar">Cancelar</string>
     <string name="seleccion_divisa_aceptar">Seleccionar</string>
+
+    <string name="accion_pais_origen">es.maps.programacion.fundamentos.PAIS</string>
+    <string name="error_divisas_iguales">Error. Las divisas no pueden ser iguales!</string>
 
 
 </resources>
