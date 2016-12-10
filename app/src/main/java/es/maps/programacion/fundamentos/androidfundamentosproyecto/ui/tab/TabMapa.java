@@ -93,7 +93,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public String paisIntencion = "";
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
@@ -198,7 +197,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public Drawable asignaImagen(String imagen) {
         // Load and parse a SVG
         SVG svg = null;
-        Drawable bandera=null;
+        Drawable bandera = null;
         try {
             svg = SVG.getFromAsset(rootView.getContext().getAssets(), "flags/" + imagen);
             bandera = new PictureDrawable(svg.renderToPicture());

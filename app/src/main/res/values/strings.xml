@@ -50,6 +50,9 @@
 
     <string name="accion_pais_origen">es.maps.programacion.fundamentos.PAIS</string>
     <string name="error_divisas_iguales">Error. Las divisas no pueden ser iguales!</string>
+    <string name="digito_POR_calculadora">*</string>
+    <string name="digito_DIV_calculadora">/</string>
+    <string name="buscar">Buscar</string>
 
 
 </resources>

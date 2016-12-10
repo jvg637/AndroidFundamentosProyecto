@@ -20,7 +20,6 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/calculadora_tab_pantalla" />
 
-
     <LinearLayout
 
         android:layout_width="wrap_content"
@@ -39,11 +38,11 @@
                 android:orientation="horizontal">
 
                 <Button
-
                     android:id="@+id/btn1"
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_1_calculadora"
                     android:text="@string/digito_1_calculadora" />
 
@@ -53,6 +52,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_2_calculadora"
                     android:text="@string/digito_2_calculadora" />
 
@@ -60,7 +60,7 @@
                     android:id="@+id/btn3"
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"      android:layout_marginRight="5dp"
                     android:tag="@string/digito_3_calculadora"
                     android:text="@string/digito_3_calculadora" />
             </LinearLayout>
@@ -75,6 +75,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_4_calculadora"
                     android:text="@string/digito_4_calculadora" />
 
@@ -83,6 +84,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_5_calculadora"
                     android:text="@string/digito_5_calculadora" />
 
@@ -91,7 +93,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="@string/digito_6_calculadora"
+                    android:tag="@string/digito_6_calculadora"      android:layout_marginRight="5dp"
                     android:text="@string/digito_6_calculadora" />
             </LinearLayout>
 
@@ -107,6 +109,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_7_calculadora"
                     android:text="@string/digito_7_calculadora" />
 
@@ -115,6 +118,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_8_calculadora"
                     android:text="@string/digito_8_calculadora" />
 
@@ -123,7 +127,7 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="@string/digito_9_calculadora"
+                    android:tag="@string/digito_9_calculadora"      android:layout_marginRight="5dp"
                     android:text="@string/digito_9_calculadora" />
             </LinearLayout>
 
@@ -133,33 +137,24 @@
                 android:orientation="horizontal">
 
                 <Button
-                    style="@style/EstiloBotonCalculadoraDigito"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
                     android:id="@+id/btn0"
+                    style="@style/EstiloBotonCalculadoraDigito"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.05"
+                    android:layout_marginRight="5dp"
                     android:tag="@string/digito_0_calculadora"
+
                     android:text="@string/digito_0_calculadora" />
 
                 <Button
-                    style="@style/EstiloBotonCalculadoraDigito"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/btnPunto"
-                    android:tag="@string/digito_PUNTO_calculadora"
-                    android:text="@string/digito_PUNTO_calculadora"
-
-
-                    />
-                <Button
                     style="@style/EstiloBotonCalculadoraDigito"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnMenos"
-                    android:tag="@string/digito_MENOS_calculadora"
-                    android:text="@string/digito_MENOS_calculadora"
-
-                    />
+                    android:layout_weight="1"
+                    android:tag="@string/digito_PUNTO_calculadora"      android:layout_marginRight="5dp"
+                    android:text="@string/digito_PUNTO_calculadora" />
 
             </LinearLayout>
 
@@ -172,18 +167,18 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnMas"
-                style="@style/EstiloBotonCalculadoraDigito"
+                android:id="@+id/btnClear"
+                style="@style/EstiloBotonCalculadoraCMD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:tag="@string/digito_MAS_calculadora"
-                android:text="@string/digito_MAS_calculadora" />
+                android:layout_weight="3"
+                android:layout_marginBottom="5dp"
+                android:tag="@string/digito_C_calculadora"
+                android:text="@string/digito_C_calculadora" />
 
             <Button
                 android:id="@+id/btnIgual"
-                style="@style/EstiloBotonCalculadoraDigito"
+                style="@style/EstiloBotonCalculadoraCMD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -191,14 +186,6 @@
                 android:tag="@string/digito_IGUAL_calculadora"
                 android:text="@string/digito_IGUAL_calculadora" />
 
-            <Button
-                android:id="@+id/btnClear"
-                style="@style/EstiloBotonCalculadoraDigito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:tag="@string/digito_C_calculadora"
-                android:text="@string/digito_C_calculadora" />
         </LinearLayout>
 
     </LinearLayout>
@@ -207,48 +194,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMas"
+            style="@style/EstiloBotonCalculadoraCMD"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/digito_MAS_calculadora"
+            android:text="@string/digito_MAS_calculadora" />
+
+        <Button
+            android:id="@+id/btnPor"
+            style="@style/EstiloBotonCalculadoraCMD"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/digito_POR_calculadora"
+            android:text="@string/digito_POR_calculadora" />
+
+
+        <Button
+            android:id="@+id/btnDiv"
+            style="@style/EstiloBotonCalculadoraCMD"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/digito_DIV_calculadora"
+            android:text="@string/digito_DIV_calculadora" />
+
+
+        <Button
+            android:id="@+id/btnMenos"
+            style="@style/EstiloBotonCalculadoraCMD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/digito_MENOS_calculadora"
+            android:text="@string/digito_MENOS_calculadora" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btnOri"
-            style="@style/EstiloBotonCalculadoraDigito"
+            style="@style/EstiloBotonOtrasOpciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/digito_moneda_origen_calculadora"
-            android:background="@drawable/degradado_rojo"
+            android:layout_marginRight="5dp"
             android:tag="@string/digito_moneda_origen_calculadora"
-            android:layout_marginRight="5dp"/>
+            android:text="@string/digito_moneda_origen_calculadora" />
+
         <Button
             android:id="@+id/btnDes"
-            style="@style/EstiloBotonCalculadoraDigito"
+            style="@style/EstiloBotonOtrasOpciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/digito_moneda_destino_calculadora"
-            android:background="@drawable/degradado_rojo"
             android:layout_marginRight="5dp"
-            />
+            android:text="@string/digito_moneda_destino_calculadora" />
+
         <Button
             android:id="@+id/btnCNV"
             style="@style/EstiloBotonCalculadoraDigito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="EUR --> USD"
-            android:textSize="12sp"
-            android:background="@drawable/degradado_azul"
             android:layout_marginRight="5dp"
-            />
+            android:background="@drawable/degradado_azul"
+            android:text="EUR --> USD"
+            android:textSize="12sp" />
+
         <Button
             android:id="@+id/btnCNV2"
             style="@style/EstiloBotonCalculadoraDigito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="USD --> EUR"
-            android:textSize="12sp"
             android:background="@drawable/degradado_azul"
-            />
-
-
+            android:text="USD --> EUR"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

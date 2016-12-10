@@ -1,8 +1,11 @@
 package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab;
 
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
@@ -71,27 +74,34 @@ public class TabCalculadora extends Fragment {
     Button btnCNV;
     @BindView(R.id.btnCNV2)
     Button btnCNV2;
+    @BindView(R.id.btnPor)
+    Button btnPor;
+    @BindView(R.id.btnDiv)
+    Button btnDiv;
 
-    /*private TextView pantallaCalculadora;*/
+    SharedPreferences pref = null;
 
-
-    private Double acumulador = 0d;
-    private boolean flagNuevoNumero = true;
-    private String tagPrevia = "";
-
-
-    private boolean flagDecimalIntroducido = false;
-
+    private String paisDefault = "";
 
     private void inicializaComponentes() {
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         obtenerDivisaPaisPreferencias();
+
     }
 
     private void obtenerDivisaPaisPreferencias() {
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String paisDefault = pref.getString(getString(R.string.pref_pais_origen), "");
+        pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        cambiaDivisas();
+
+
+    }
+
+    private void cambiaDivisas() {
+        paisDefault = pref.getString(getString(R.string.pref_pais_origen), "");
 
         if (!paisDefault.isEmpty()) {
             PaisesDivisasSQLite db = new PaisesDivisasSQLite(getContext());
@@ -108,8 +118,27 @@ public class TabCalculadora extends Fragment {
 
             btnCNV.setText(primeraDivsa + btnCNV.getText().toString().substring(3));
         }
+
+
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        String paisDefaultAux = pref.getString(getString(R.string.pref_pais_origen), "");
+        if (paisDefaultAux != null && !paisDefaultAux.isEmpty() && !paisDefault.equals(paisDefaultAux))
+            cambiaDivisas();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,17 +153,21 @@ public class TabCalculadora extends Fragment {
 
     void pulsaDigitoCalculadora(View view) {
 
-        String tag = view.getTag().toString();
+        tag = view.getTag().toString();
+        sumando = 0d;
+        // Inicializa
+        //sumando = acumulador = 0d;
+        //tagPrevia = "";
+        //flagNuevoNumero = flagDecimalIntroducido = false;
+
 
         //pantallaCalculadora = (TextView) getActivity().findViewById(R.id.pantalla_calculadora);
 
-        double sumando = 0;
-
         if (flagNuevoNumero && !tag.equals(getResources().getString(R.string.digito_IGUAL_calculadora)) &&
                 !tag.equals(getResources().getString(R.string.digito_MAS_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_moneda_origen_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_moneda_destino_calculadora)) &&
-                !tag.equals(getResources().getString(R.string.digito_MENOS_calculadora))) {
+                !tag.equals(getResources().getString(R.string.digito_MENOS_calculadora)) &&
+                !tag.equals(getResources().getString(R.string.digito_POR_calculadora)) &&
+                !tag.equals(getResources().getString(R.string.digito_DIV_calculadora))) {
             actualizaPantalla(tag, "");
         }
 
@@ -151,90 +184,17 @@ public class TabCalculadora extends Fragment {
                 flagDecimalIntroducido = false;
                 tagPrevia = "";
 
-            } else if (tag.equals(getResources().getString(R.string.digito_MAS_calculadora))) {
+            } else if (tag.equals(getResources().getString(R.string.digito_MAS_calculadora)) ||
+                    tag.equals(getResources().getString(R.string.digito_MENOS_calculadora)) ||
+                    tag.equals(getResources().getString(R.string.digito_POR_calculadora)) ||
+                    tag.equals(getResources().getString(R.string.digito_DIV_calculadora)))
+                {
                 sumando = pantallaCalculadora.getText().toString().length() > 0d ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0d;
-                //Log.d("PANTALLA_ACUMULADOR", String.valueOf(sumando));
-
-                flagNuevoNumero = true;
-                flagDecimalIntroducido = false;
-
-                if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
-                    acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
-                    acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
-                else
-                    acumulador = sumando;
-
-                tagPrevia = tag;
-
-                if (acumulador % 1f == 0f) {
-                    actualizaPantalla(tag, String.format("%d", (acumulador.longValue())));
-                } else {
-                    actualizaPantalla(tag, String.format("%.2f", (acumulador)));
-                }
-
-
-            } else if (tag.equals(getResources().getString(R.string.digito_MENOS_calculadora))) {
-                sumando = pantallaCalculadora.getText().toString().length() > 0d ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0d;
-                //Log.d("PANTALLA_ACUMULADOR", String.valueOf(sumando));
-
-
-                if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
-                    acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
-                    acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
-                else
-                    acumulador = sumando;
-
-
-                flagNuevoNumero = true;
-                flagDecimalIntroducido = false;
-
-
-                if (acumulador % 1f == 0f) {
-                    actualizaPantalla(tag, String.format("%d", (acumulador.longValue())));
-                } else {
-                    actualizaPantalla(tag, String.format("%.2f", (acumulador)));
-                }
-
-
-                tagPrevia = tag;
-
-                //Log.d("PANTALLA_ACUMULADOR", String.valueOf(sumando));
-
+                formateaPantalla();
             } else if (tag.equals(getResources().getString(R.string.digito_IGUAL_calculadora))) {
 
-                if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
-                    acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
-                else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
-                    acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
-                else acumulador = Double.parseDouble(pantallaCalculadora.getText().toString());
+                formateaPantalla();
 
-                if (acumulador % 1f == 0f) {
-                    actualizaPantalla(tag, String.format("%d", (acumulador.longValue())));
-                } else {
-                    actualizaPantalla(tag, String.format("%.2f", (acumulador)));
-                }
-                flagNuevoNumero = true;
-                flagDecimalIntroducido = false;
-
-                //acumulador = 0d;
-                tagPrevia = "";
-
-            } else if (tag.equals(getResources().getString(R.string.digito_moneda_origen_calculadora))) {
-                sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
-                actualizaPantalla(tag, String.format("%d", (Math.round(sumando * 166.386))));
-
-                flagNuevoNumero = true;
-                flagDecimalIntroducido = false;
-                tagPrevia = "";
-
-            } else if (tag.equals(getResources().getString(R.string.digito_moneda_destino_calculadora))) {
-                sumando = pantallaCalculadora.getText().toString().length() > 0 ? Double.parseDouble(pantallaCalculadora.getText().toString()) : 0;
-                actualizaPantalla(tag, String.format("%.2f", (sumando / 166.386f)));
-
-                flagNuevoNumero = true;
-                flagDecimalIntroducido = false;
                 tagPrevia = "";
 
             } else if (tag.equals(getResources().getString(R.string.digito_PUNTO_calculadora))) {
@@ -262,6 +222,37 @@ public class TabCalculadora extends Fragment {
 
     }
 
+    // Variables calculadora
+    private Double sumando = 0d, acumulador = 0d;
+    String tag = "", tagPrevia = "";
+    private boolean flagNuevoNumero = true, flagDecimalIntroducido = false;
+
+
+    private void formateaPantalla() {
+
+        flagNuevoNumero = true;
+        flagDecimalIntroducido = false;
+
+        if (tagPrevia.equals(getResources().getString(R.string.digito_MAS_calculadora)))
+            acumulador += Double.parseDouble(pantallaCalculadora.getText().toString());
+        else if (tagPrevia.equals(getResources().getString(R.string.digito_MENOS_calculadora)))
+            acumulador -= Double.parseDouble(pantallaCalculadora.getText().toString());
+        else if (tagPrevia.equals(getResources().getString(R.string.digito_POR_calculadora)))
+            acumulador *= Double.parseDouble(pantallaCalculadora.getText().toString());
+        else if (tagPrevia.equals(getResources().getString(R.string.digito_DIV_calculadora)))
+            acumulador /= Double.parseDouble(pantallaCalculadora.getText().toString());
+        else
+            acumulador = sumando;
+
+        tagPrevia = tag;
+
+        if (this.acumulador % 1f == 0f) {
+            actualizaPantalla(tagPrevia, String.format("%d", (this.acumulador.longValue())).replace(",","."));
+        } else {
+            actualizaPantalla(tagPrevia, String.format("%.2f", (this.acumulador)).replace(",","."));
+        }
+    }
+
     void actualizaPantalla(String tag, String valor) {
         //Log.d("PANTALLA_TOTAL", valor);
         if ((tag.matches("[0-9]") || tag.indexOf(".") >= 0) && valor.length() > getResources().getInteger(R.integer.maxPosiciones)) {
@@ -278,32 +269,102 @@ public class TabCalculadora extends Fragment {
     }
 
     @OnClick({R.id.btnCNV})
-    void convierteDivisa() {
+    void convierteDivisa1() {
 
         convierteDivisa(1);
     }
 
+    @OnClick({R.id.btnCNV2})
+    void convierteDivisa2() {
+
+        convierteDivisa(2);
+    }
+
     private void convierteDivisa(int opcion) {
         try {
-            double tipoDeCambio=-1;
-            if (opcion == 1)
-                 tipoDeCambio = new DivisasSW().tipoCambio(btnOri.getText().toString(), btnDes.getText().toString());
-            else
-                 tipoDeCambio = new DivisasSW().tipoCambio( btnDes.getText().toString(),btnOri.getText().toString());
+            double tipoDeCambio = -1;
 
-            if (tipoDeCambio < 0) {
-                Toast.makeText(getContext(), "Ha ocurrido un error en el acceso al tipo de cambio!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            new TareaTipoCambio().execute(String.valueOf(opcion),btnDes.getText().toString(), btnOri.getText().toString());
 
             //Toast.makeText(this, "" + importe1, Toast.LENGTH_SHORT).show();
 
-            pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
+
         } catch (Exception ex) {
             Toast.makeText(getContext(), "Ha ocurrido un error! Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
 
         }
     }
+
+
+    private void actualizaTipoCambio(double tipoDeCambio) {
+        pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
+
+        flagNuevoNumero=true;
+        flagDecimalIntroducido=false;
+    }
+
+
+
+    class TareaTipoCambio extends AsyncTask<String, Integer, Double> {
+        private ProgressDialog progreso;
+
+        @Override
+        protected void onPreExecute() {
+            progreso = new ProgressDialog(getActivity());
+            progreso.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progreso.setMessage("Calculando...");
+            progreso.setCancelable(true);
+            progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                             @Override
+                                             public void onCancel(DialogInterface dialog) {
+                                                 cancel(true);
+                                             }
+                                         }
+
+            );
+            progreso.setMax(100);
+            progreso.setProgress(0);
+            progreso.show();
+        }
+
+        @Override
+        protected Double doInBackground(String... n) {
+            double tipoDeCambio=-1;
+
+            publishProgress(5);
+            if (n[0].equals("1")) {
+
+                tipoDeCambio = new DivisasSW().tipoCambio(n[1], n[2]);
+
+            }
+            else {
+                tipoDeCambio = new DivisasSW().tipoCambio(n[2], n[1]);
+
+
+            }
+            publishProgress(95);
+
+            return tipoDeCambio;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... porc) {
+            progreso.setProgress(porc[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Double res) {
+            progreso.dismiss();
+            actualizaTipoCambio(res);
+        }
+
+
+        @Override
+        protected void onCancelled() {
+            //salida.append("cancelado\n");
+        }
+    }
+
 
     @OnClick({R.id.btnOri, R.id.btnDes})
     public void seleccionaDivisa(View view) {
@@ -317,7 +378,7 @@ public class TabCalculadora extends Fragment {
             startActivityForResult(intent, NUEVA_DIVISA_DES);
     }
 
-    @OnClick({R.id.pantalla_calculadora, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn0, R.id.btnMas, R.id.btnIgual, R.id.btnClear, R.id.btnPunto, R.id.btnMenos})
+    @OnClick({R.id.btnPor, R.id.btnDiv, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn0, R.id.btnMas, R.id.btnIgual, R.id.btnClear, R.id.btnPunto, R.id.btnMenos})
     public void pulsaBotonCalculadora(View view) {
         pulsaDigitoCalculadora(view);
 
@@ -335,7 +396,7 @@ public class TabCalculadora extends Fragment {
             } else {
                 btnOri.setText(divisaRes);
                 btnCNV.setText(divisaRes + btnCNV.getText().toString().substring(3));
-                btnCNV2.setText(btnCNV.getText().toString().substring(0, 8) + divisaRes);
+                btnCNV2.setText(btnCNV2.getText().toString().substring(0, 8) + divisaRes);
 
             }
         } else if (requestCode == NUEVA_DIVISA_DES && resultCode == RESULT_OK)
@@ -349,10 +410,11 @@ public class TabCalculadora extends Fragment {
             } else {
                 btnCNV.setText(btnCNV.getText().toString().substring(0, 8) + divisaRes);
                 btnDes.setText(divisaRes);
-                btnCNV2.setText(divisaRes + btnCNV.getText().toString().substring(3));
+                btnCNV2.setText(divisaRes + btnCNV2.getText().toString().substring(3));
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

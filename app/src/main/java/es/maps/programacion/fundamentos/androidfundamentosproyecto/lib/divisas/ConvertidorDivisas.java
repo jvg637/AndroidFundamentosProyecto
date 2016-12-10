@@ -87,7 +87,7 @@ public class ConvertidorDivisas extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                etOrigen.setText(lvOrigen.getItemAtPosition(position).toString().substring(0, 4));
+                etOrigen.setText(lvOrigen.getItemAtPosition(position).toString().split("-")[0] + "-");
                 view.setSelected(true);
 
                 ocutalEntradaTeclado();

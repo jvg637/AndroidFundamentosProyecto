@@ -1,6 +1,5 @@
 package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas;
 
-import android.os.StrictMode;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -14,14 +13,11 @@ import java.net.URL;
 
 public class DivisasSW  {
 
-    public DivisasSW() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
-    }
 
-    public float  tipoCambio(String divisaOrigen, String divisaDestino) {
+    public static double tipoCambio(String divisaOrigen, String divisaDestino) {
 
         URL url = null;
-        float importe=-1;
+        double importe=-1;
         HttpURLConnection conexion = null;
         try {
             url = new URL(Divisas.urlCambio.replace("%1%", divisaOrigen+ divisaDestino));
@@ -30,13 +26,12 @@ public class DivisasSW  {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
                 String linea = reader.readLine();
                 while (linea!=null) {
-                    Log.d("LINEA:", linea);
-                    importe= Float.parseFloat(linea);
+                    importe= Double.parseDouble(linea);
                     linea = reader.readLine();
                 }
                 reader.close();
             } else {
-                Log.e("Asteroides", conexion.getResponseMessage());
+                Log.e("Error Rutina conversión", conexion.getResponseMessage());
 
             }
         } catch (Exception e) {
