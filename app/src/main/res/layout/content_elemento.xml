@@ -21,15 +21,6 @@ android:paddingTop="4dp">
     />
 
 <TextView
-    android:id="@+id/pais_en"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@id/pais_es"
-    android:layout_below="@id/pais_es"
-    android:visibility="gone"
-     />
-
-<TextView
     android:id="@+id/divisas"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

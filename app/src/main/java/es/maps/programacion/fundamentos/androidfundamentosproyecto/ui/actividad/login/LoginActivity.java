@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.login;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

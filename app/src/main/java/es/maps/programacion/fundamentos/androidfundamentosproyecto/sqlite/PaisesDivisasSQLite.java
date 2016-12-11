@@ -10,10 +10,11 @@ import android.widget.Toast;
 
 import java.util.Vector;
 
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.application.MapsApplication;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.DatosPaisesDivisas;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Divisa;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.DatosPaisesDivisas;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Divisa;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 
 
 /**
@@ -57,7 +58,7 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
             cursor.close();
             db.close();
         } catch (SQLiteException es) {
-            Toast.makeText(context, "Error a listar los paises", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.sql_error_listar_paises, Toast.LENGTH_SHORT).show();
         }
         return result;
     }
@@ -79,7 +80,7 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
             cursor.close();
             db.close();
         } catch (SQLiteException es) {
-            Toast.makeText(context, "Error al listar los divisas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.sql_error_listar_divisas, Toast.LENGTH_SHORT).show();
         }
         return result;
     }
@@ -108,7 +109,7 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
                 Log.d("PAIS no existe:","");
 
         } catch (SQLiteException es) {
-            Toast.makeText(context, "Error al obtener el pais", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.sql_error_listar_un_pais, Toast.LENGTH_SHORT).show();
         }
         return pais;
     }
@@ -129,7 +130,7 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
             cursor.close();
             db.close();
         } catch (SQLiteException es) {
-            Toast.makeText(context, "Error al obtener divisa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.sql_error_listar_una_divisa, Toast.LENGTH_SHORT).show();
         }
         return divisa;
     }

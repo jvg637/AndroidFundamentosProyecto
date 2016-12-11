@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,8 +22,8 @@ import java.util.Vector;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.application.MapsApplication;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Divisa;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Divisa;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 
 public class ConvertidorDivisas extends AppCompatActivity {
@@ -208,7 +208,7 @@ public class ConvertidorDivisas extends AppCompatActivity {
         } else
 
         {
-            Toast.makeText(this, "Opción no seleccionada!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.actividad_dialogo_listado_error_opcion_no_seleccionada, Toast.LENGTH_SHORT).show();
 
         }
     }

@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.application.MapsApplication;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 
 /**
  * Created by jvg63 on 09/12/2016.

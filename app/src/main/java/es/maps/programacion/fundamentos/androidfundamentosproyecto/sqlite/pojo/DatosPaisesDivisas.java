@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo;
 
 import android.database.sqlite.SQLiteDatabase;
 

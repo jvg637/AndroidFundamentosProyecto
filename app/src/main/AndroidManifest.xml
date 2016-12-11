@@ -18,7 +18,7 @@
 
         <uses-feature android:name="android.hardware.location.gps" />
 
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.actividad.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +43,7 @@
             android:label="Acerca de" />
 
 
-        <activity android:name=".lib.divisas.ConvertidorDivisas"></activity>
+        <activity android:name=".ui.actividad.divisas_sw.ConvertidorDivisas"></activity>
 
     </application>
 </manifest>

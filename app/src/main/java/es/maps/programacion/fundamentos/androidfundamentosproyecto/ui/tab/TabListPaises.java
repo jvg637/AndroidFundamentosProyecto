@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.Vector;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.ActividadMapa;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.adapter.AdaptadorPaises;

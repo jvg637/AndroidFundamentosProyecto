@@ -21,9 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.ConvertidorDivisas;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.DivisasSW;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw.ConvertidorDivisas;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw.DivisasSW;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 
 import static android.app.Activity.RESULT_OK;
@@ -301,6 +301,7 @@ public class TabCalculadora extends Fragment {
 
             if (Double.parseDouble(pantallaCalculadora.getText().toString()) == 0) {
                 Toast.makeText(getContext(), R.string.tab_calculadora_error_importe_a_convertir_0, Toast.LENGTH_SHORT).show();
+                return;
             }
 
             new TareaTipoCambio().execute(String.valueOf(opcion), btnDes.getText().toString(), btnOri.getText().toString());

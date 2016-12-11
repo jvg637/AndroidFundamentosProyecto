@@ -2,10 +2,6 @@
     <string name="app_name">Maps &amp; Flags</string>
 
     <string name="preferencias_principal">preferencias_principal</string>
-
-    <string name="main_activity_titulo_pestaña_boton_animado">Botón Animado</string>
-    <string name="main_activity_titulo_pestaña_calculadora">Calculadora</string>
-
     <string name="digito_1_calculadora">1</string>
     <string name="digito_2_calculadora">2</string>
     <string name="digito_3_calculadora">3</string>
@@ -21,6 +17,11 @@
     <string name="digito_moneda_origen_calculadora">EUR</string>
     <string name="digito_moneda_destino_calculadora">USD</string>
     <string name="digito_PUNTO_calculadora">.</string>
+
+    <string name="main_activity_titulo_pestaña_boton_animado">Botón Animado</string>
+    <string name="main_activity_titulo_pestaña_calculadora">Calculadora</string>
+
+
     <string name="calculadora_overflow">Err. OverFlow</string>
     <string name="tab_other_title">Otra</string>
     <string name="otra_tab_title">Prueba de pestaña con icono</string>
@@ -65,6 +66,13 @@
     <string name="tab_calculadora_msg_digitos_excedidos">No se permiten más digitos</string>
     <string name="tab_calculadora_msg_error_convirtiendo_divisa">Ha ocurrido un error! Inténtelo de nuevo</string>
     <string name="tab_calculadora_msg_calculando">Calculando...</string>
+    <string name="sql_error_listar_paises">Error a listar los paises</string>
+    <string name="sql_error_listar_divisas">Error al listar los divisas</string>
+    <string name="sql_error_listar_un_pais">Error al obtener el pais</string>
+    <string name="sql_error_listar_una_divisa">Error al obtener divisa</string>
+    <string name="tab_mapa_msg_moneda">Moneda/s:\n</string>
+    <string name="tab_mapa_msg_mapa_indefinido">Indefinido</string>
+    <string name="actividad_dialogo_listado_error_opcion_no_seleccionada">Opción no seleccionada!</string>
 
 
 </resources>

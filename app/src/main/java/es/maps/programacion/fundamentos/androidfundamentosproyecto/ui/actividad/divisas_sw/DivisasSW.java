@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw;
 
 import android.util.Log;
 
@@ -35,7 +35,7 @@ public class DivisasSW  {
 
             }
         } catch (Exception e) {
-            Log.e("Asteroides", e.getMessage(), e);
+            Log.e("Error Rutina conversión", e.getMessage(), e);
 
 
         } finally {

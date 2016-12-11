@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo;
 
 /**
  * Created by jvg63 on 05/12/2016.

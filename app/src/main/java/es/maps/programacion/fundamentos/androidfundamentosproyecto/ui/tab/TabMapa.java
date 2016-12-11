@@ -140,6 +140,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                 if (mediaPlayer != null && (estado == ESTADO_PAUSE || estado == ESTADO_FINALIZADO)) {
                     mediaPlayer.start();
                     estado = ESTADO_PLAY;
+                    iconosReproductor();
 
 
                 } else {
@@ -163,6 +164,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                                               estado = ESTADO_PAUSE;
                                               mediaPlayer.pause();
                                               savePos = mediaPlayer.getCurrentPosition();
+
+                                              iconosReproductor();
                                           }
 
                                       }
@@ -182,6 +185,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                                              estado = ESTADO_STOP;
                                              //path="";
                                              mediaPlayer.stop();
+
+                                             iconosReproductor();
                                          }
                                      }
                                  }
@@ -227,7 +232,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         if (percent < 100)
             showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + percent);
         else
-            hidePlayer();
+            logTextView.setVisibility(View.INVISIBLE);
     }
 
     public void onCompletion(MediaPlayer arg0) {
@@ -244,6 +249,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             mediaPlayer.start();
             estado = ESTADO_PLAY;
         }
+        iconosReproductor();
 
     }
 
@@ -391,17 +397,47 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         super.onResume();
 
         if (mediaPlayer != null) {
-            if (estado == ESTADO_PLAY)
+            if (estado == ESTADO_PLAY) {
                 mediaPlayer.start();
+            }
+            iconosReproductor();
         } else
 
         {
             if (estado == ESTADO_PLAY || estado == ESTADO_PAUSE || estado == ESTADO_FINALIZADO) {
                 playVideo();
 
-            }
+            } else
+                iconosReproductor();
         }
 
+    }
+
+    private void iconosReproductor() {
+        switch (estado) {
+
+            case ESTADO_PLAY:
+                bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play));
+                bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause_));
+                bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop_));
+                break;
+            case ESTADO_PAUSE:
+                bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play_));
+                bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause));
+                bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop_));
+                break;
+            case ESTADO_STOP:
+                bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play_));
+                bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause_));
+                bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop));
+                break;
+            case ESTADO_NO_INICIADO:
+            case ESTADO_FINALIZADO:
+                bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play));
+                bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause));
+                bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop));
+                break;
+        }
     }
 
     @Override
@@ -433,7 +469,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        if (paisIntencion != null && !paisIntencion.isEmpty())
+        if (paisIntencion == null || paisIntencion.isEmpty())
             manejador.removeUpdates(this);
     }
 
@@ -445,10 +481,10 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             //int pos = mediaPlayer.getCurrentPosition();
             guardarEstado.putString("ruta", path);
             guardarEstado.putInt("posicion", savePos);
-            guardarEstado.putInt("estado", estado);
 
 
         }
+        guardarEstado.putInt("estado", estado);
         guardarEstado.putString("pais", paisActual);
         guardarEstado.putString("paisIntencion", paisIntencion);
     }

@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw;
 
 /**
  * Created by jvg63 on 20/11/2016.

@@ -1,4 +1,4 @@
-package es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises;
+package es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab.paises;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,8 +24,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.application.MapsApplication;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Divisa;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.pojo.Pais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Divisa;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab.TabMapa;
 
@@ -80,7 +80,7 @@ public class LatLngToPais {
         this.paisIntencion = pais;
         this.tabMapa = tabMapa;
 
-        showMessage("paisIntencion=" + pais);
+        //showMessage("paisIntencion=" + pais);
 
         new TareaObtenerLatLongDePais().execute(pais);
 
@@ -194,7 +194,7 @@ public class LatLngToPais {
     }
 
     private void muestraPaisEnMapa() {
-        showMessage((pais != null ? pais.getIdPais() : "") + " " + tabMapa.paisActual);
+        //showMessage((pais != null ? pais.getIdPais() : "") + " " + tabMapa.paisActual);
         if (pais != null && !pais.getIdPais().equals(tabMapa.paisActual) && tabMapa.mediaPlayer != null) {
             if (tabMapa.estado == tabMapa.ESTADO_PLAY)
                 tabMapa.mediaPlayer.stop();
@@ -267,7 +267,7 @@ public class LatLngToPais {
                     txtAuxDiv += "\t" + getDivisa(textoDivisa).substring(0, Math.min(36, getDivisa(textoDivisa).length())) + "\n";
                     //txtAuxDiv += "\t" + divisas[i] + "\n";
                 }
-                tabMapa.txtMoneda.setText("Moneda/s:\n" + txtAuxDiv);
+                tabMapa.txtMoneda.setText(context.getString(R.string.tab_mapa_msg_moneda) + txtAuxDiv);
 
             } else {
                 tabMapa.txtMoneda.setText(context.getString(R.string.sinmoneda));
@@ -288,7 +288,7 @@ public class LatLngToPais {
 
             if (posIni != null) {
                 tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(posIni).icon(tabMapa.marcadorColor));
-                tabMapa.posicionActual.setTitle("Unnamed");
+                tabMapa.posicionActual.setTitle(context.getString(R.string.tab_mapa_msg_mapa_indefinido));
                 tabMapa.map.moveCamera(CameraUpdateFactory.newLatLngZoom(posIni, 10));
                 //tabMapa.posicionActual.setSnippet("(" + posIni.latitude + "," + posIni.longitude + ")");
                 tabMapa.posicionActual.setSnippet("(" + String.format("%.5f",posIni.latitude).replace(",",".") + ", " + String.format("%.5f",posIni.longitude).replace(",",".")  + ")");

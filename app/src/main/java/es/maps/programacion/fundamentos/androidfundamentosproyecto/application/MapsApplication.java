@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.paises.LatLngToPais;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab.paises.LatLngToPais;
 
 /**
  * Created by jvg63 on 03/12/2016.

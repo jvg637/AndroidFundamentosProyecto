@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".lib.divisas.ConvertidorDivisas">
+    tools:context=".ui.actividad.divisas_sw.ConvertidorDivisas">
 
 
     <LinearLayout

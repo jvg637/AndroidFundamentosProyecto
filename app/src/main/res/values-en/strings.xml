@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pref_pais_origen_sum">Choose a Country</string>
+    <string name="pref_pais_origen_tit">Country</string>
+
+    <string name="preferencias_configuracion">Preferences</string>
+    <string name="recycler_himno">Hymn</string>
+    <string name="main_activity_titulo_pestaña_lista_paises">Countries</string>
+    <string name="divisa_tab_mapa">Currency/ies</string>
+    <string name="main_activity_titulo_preferences">Preferences</string>
+    <string name="cancelar">Cancel</string>
+    <string name="seleccion_divisa_aceptar">Choose</string>
+
+    <string name="error_divisas_iguales">Error. The two currencies couldn\'t be the same!</string>
+
+    <string name="buscar">Find</string>
+    <string name="tab_calculadora_error_importe_a_convertir_0">Input a number not equal 0</string>
+    <string name="tab_mapa_configuracion_localizacion">Configure the location</string>
+    <string name="tab_mapa_configuracion_localizacion2">Nothing device to get current position. Could you…</string>
+    <string name="tab_mapa_configuracion">Configuration</string>
+    <string name="tab_map_configuracion_cancelar">Cancel</string>
+    <string name="tab_mapa_msg_cacheando">Buffering:</string>
+    <string name="tab_calculadora_msg_divisas_iguales">"The currencies ara the same, ... changing destination currency to "</string>
+    <string name="tab_calculadora_operacion_no_implemenada">Option not developed</string>
+    <string name="tab_calculadora_msg_pulse">"Click "</string>
+    <string name="tab_calculadora_msg_digitos_excedidos">More digits aren\'t allowed</string>
+    <string name="tab_calculadora_msg_error_convirtiendo_divisa">An error has been raisesd. Please, try it again</string>
+    <string name="tab_calculadora_msg_calculando">Working out ...</string>
+    <string name="sql_error_listar_paises">An unidentified error getting the countries</string>
+    <string name="sql_error_listar_divisas">An unidentified error getting the currencies</string>
+    <string name="sql_error_listar_un_pais">An unidentified error getting a country</string>
+    <string name="sql_error_listar_una_divisa">An unidentified error getting a currency</string>
+    <string name="tab_mapa_msg_moneda">Currency:\n</string>
+    <string name="tab_mapa_msg_mapa_indefinido">Undefined</string>
+    <string name="actividad_dialogo_listado_error_opcion_no_seleccionada">You have to select an option!</string>
+</resources>
