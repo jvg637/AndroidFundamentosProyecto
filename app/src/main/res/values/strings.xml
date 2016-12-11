@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MapaMundi Fundamentos</string>
+    <string name="app_name">Maps &amp; Flags</string>
 
     <string name="preferencias_principal">preferencias_principal</string>
 
@@ -54,6 +54,17 @@
     <string name="digito_DIV_calculadora">/</string>
     <string name="buscar">Buscar</string>
     <string name="tab_calculadora_error_importe_a_convertir_0">Introduzca un importe distinto de 0</string>
+    <string name="tab_mapa_configuracion_localizacion">Configuración de localización</string>
+    <string name="tab_mapa_configuracion_localizacion2">Ningún proveedor de localización activo. ¿Quiere…</string>
+    <string name="tab_mapa_configuracion">Configuración</string>
+    <string name="tab_map_configuracion_cancelar">Cancelar</string>
+    <string name="tab_mapa_msg_cacheando">Buffering:</string>
+    <string name="tab_calculadora_msg_divisas_iguales">"Divisas Iguales,... cambiando destino a "</string>
+    <string name="tab_calculadora_operacion_no_implemenada">Operación no implementada</string>
+    <string name="tab_calculadora_msg_pulse">"Pulse "</string>
+    <string name="tab_calculadora_msg_digitos_excedidos">No se permiten más digitos</string>
+    <string name="tab_calculadora_msg_error_convirtiendo_divisa">Ha ocurrido un error! Inténtelo de nuevo</string>
+    <string name="tab_calculadora_msg_calculando">Calculando...</string>
 
 
 </resources>

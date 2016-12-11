@@ -78,7 +78,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public MediaPlayer mediaPlayer;
 
 
-    private ImageButton bPlay, bPause, bStop, bLog;
+    private ImageButton bPlay, bPause, bStop;
     private TextView logTextView;
     private boolean pause, stop;
     public String path = "";
@@ -188,7 +188,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
         );
 
-        showMessage("");
+        showMessageLog("");
 
         estado = ESTADO_NO_INICIADO;
     }
@@ -201,7 +201,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         try {
             svg = SVG.getFromAsset(rootView.getContext().getAssets(), "flags/" + imagen);
             bandera = new PictureDrawable(svg.renderToPicture());
-            showMessage("imagen cargada");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,15 +210,24 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         return bandera;
     }
 
+    private void showMessageLog(String msg) {
+        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        //Log.d("REPRODUCTOR", "Value is: " + msg);
+        logTextView.setText(msg);
+    }
+
     private void showMessage(String msg) {
         //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-        Log.d("REPRODUCTOR", "Value is: " + msg);
-        logTextView.setText(msg);
+        //Log.d("REPRODUCTOR", "Value is: " + msg);
+        //logTextView.setText(msg);
     }
 
 
     public void onBufferingUpdate(MediaPlayer arg0, int percent) {
-        showMessage("Buffering:" + percent);
+        if (percent < 100)
+            showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + percent);
+        else
+            hidePlayer();
     }
 
     public void onCompletion(MediaPlayer arg0) {
@@ -228,9 +237,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     }
 
     public void onPrepared(MediaPlayer mediaplayer) {
-        //showMessage("onPrepared called");
-        //showMessage("");
-        logTextView.setVisibility(View.GONE);
+        //logTextView.setVisibility(View.GONE);
 
         mediaPlayer.seekTo(savePos);
         if (estado != ESTADO_PAUSE && estado != ESTADO_FINALIZADO) {
@@ -449,7 +456,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     @Override
     public void onViewStateRestored(@Nullable Bundle recEstado) {
 
-        Log.d("RESTORE", "ONRESTORE");
+
         super.onViewStateRestored(recEstado);
         if (recEstado != null) {
             path = recEstado.getString("ruta", "");
@@ -457,9 +464,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             estado = recEstado.getInt("estado", ESTADO_NO_INICIADO);
             paisActual = recEstado.getString("pais", "");
             paisIntencion = recEstado.getString("paisIntencion", "");
-
-            Log.d("RESTORE", "VALORES_RECUPERADOS" + path + " " + savePos + " " + paisActual + " " + estado);
-
         }
     }
 
@@ -474,7 +478,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     ) {
                 registraSensoresGPS_RED();
-                // Snackbar.make(layout, "PERMISOS GPS OK", Snackbar.LENGTH_SHORT).show();
+
             } else {
                 solicitarPermisosGPS();
             }
@@ -490,7 +494,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                                            int[] grantResults) {
         if (requestCode == SOLICITUD_PERMISO_GPS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Snackbar.make(layout, "PERMISOS GPS OK", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(layout, "PERMISOS GPS OK", Snackbar.LENGTH_SHORT).show();
 
                 registraSensoresGPS_RED();
             }
@@ -523,23 +527,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
             if (map != null) {
                 LatLng posicion = new LatLng(mejorLocaliz.getLatitude(), localiz.getLongitude());
-
-
-                //Log.d("posicionActual=", posicionActual.toString());
-
-                /*if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_CONTROL_REPRODUCTOR && telefono != null && mensaje != null) {
-                    posicionActual.setTitle(mensaje);
-
-                } else if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_ABRIR_MAPA && telefono != null) {
-                    posicionActual.setTitle(telefono);
-                } else if (tipoNotificacion == TipoNotificaciones.ID_NOTIFICACION_GPS_CIRCULO_POLAR_ANTARTICO) {
-                    posicionActual.setTitle("Circulo Polar Artico");
-                } else {
-
-                    posicionActual.setTitle("Actividad Principal");
-
-                }*/
-
 
                 datosPais(posicion);
 
@@ -623,12 +610,12 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     }
 
     public void mostrarAlertaConfiguracion() {
-        new AlertDialog.Builder(getContext()).setTitle("Configuración de localización").setMessage("Ningún proveedor de localización activo. ¿Quiere…").setPositiveButton("Configuración", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getContext()).setTitle(R.string.tab_mapa_configuracion_localizacion).setMessage(R.string.tab_mapa_configuracion_localizacion2).setPositiveButton(R.string.tab_mapa_configuracion, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int boton) {
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(i);
             }
-        }).setNegativeButton("Cancelar", null).show();
+        }).setNegativeButton(R.string.tab_map_configuracion_cancelar, null).show();
     }
 
 

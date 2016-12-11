@@ -122,7 +122,7 @@ public class TabCalculadora extends Fragment {
                 } else {
                     divisaDestinoNueva = "USD";
                 }
-                Toast.makeText(getContext(), "Divisas Iguales,... cambiando destino a " + divisaDestinoNueva, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.tab_calculadora_msg_divisas_iguales) + divisaDestinoNueva, Toast.LENGTH_SHORT).show();
 
                 btnCNV.setText(primeraDivisa + " --> " + divisaDestinoNueva);
                 btnCNV2.setText(divisaDestinoNueva + " --> " + primeraDivisa);
@@ -225,13 +225,13 @@ public class TabCalculadora extends Fragment {
                     flagNuevoNumero = false;
                 }
             } else {
-                Toast.makeText(getContext(), "Operación no implementada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.tab_calculadora_operacion_no_implemenada, Toast.LENGTH_SHORT).show();
 
             }
 
 
         } catch (NumberFormatException ex) {
-            Toast.makeText(getContext(), "Pulse " + getResources().getString(R.string.digito_C_calculadora), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.tab_calculadora_msg_pulse) + getResources().getString(R.string.digito_C_calculadora), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -271,7 +271,7 @@ public class TabCalculadora extends Fragment {
     void actualizaPantalla(String tag, String valor) {
         //Log.d("PANTALLA_TOTAL", valor);
         if ((tag.matches("[0-9]") || tag.indexOf(".") >= 0) && valor.length() > getResources().getInteger(R.integer.maxPosiciones)) {
-            Toast.makeText(getContext(), "No se permiten más digitos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.tab_calculadora_msg_digitos_excedidos, Toast.LENGTH_SHORT).show();
         } else {
             if (valor.length() <= getResources().getInteger(R.integer.maxPosiciones)) {
                 pantallaCalculadora.setText(valor);
@@ -307,7 +307,7 @@ public class TabCalculadora extends Fragment {
 
 
         } catch (Exception ex) {
-            Toast.makeText(getContext(), "Ha ocurrido un error! Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.tab_calculadora_msg_error_convirtiendo_divisa, Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -328,7 +328,7 @@ public class TabCalculadora extends Fragment {
         protected void onPreExecute() {
             progreso = new ProgressDialog(getActivity());
             progreso.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progreso.setMessage("Calculando...");
+            progreso.setMessage(getString(R.string.tab_calculadora_msg_calculando));
             progreso.setCancelable(true);
             progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                              @Override

@@ -161,21 +161,6 @@ public class LatLngToPais {
 
         @Override
         protected void onPreExecute() {
-            /*progreso = new ProgressDialog(MainActivity);
-            progreso.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progreso.setMessage("Calculando...");
-            progreso.setCancelable(true);
-            progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                             @Override
-                                             public void onCancel(DialogInterface dialog) {
-                                                 TareaObtenerPais.this.cancel(true);
-                                             }
-                                         }
-
-            );
-            progreso.setMax(100);
-            progreso.setProgress(0);
-            progreso.show();*/
         }
 
         @Override
@@ -195,7 +180,7 @@ public class LatLngToPais {
 
         @Override
         protected void onPostExecute(Pais res) {
-            //progreso.dismiss();
+
             pais = res;
 
             muestraPaisEnMapa();
@@ -204,7 +189,7 @@ public class LatLngToPais {
 
         @Override
         protected void onCancelled() {
-            //salida.append("cancelado\n");
+
         }
     }
 
@@ -242,7 +227,7 @@ public class LatLngToPais {
             if (posIni != null) {
                 tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(posIni).icon(tabMapa.marcadorColor));
                 tabMapa.posicionActual.setTitle(getPais(pais) + "-" + pais.getIdPais());
-                tabMapa.posicionActual.setSnippet("(" + posIni.latitude + "," + posIni.longitude + ")");
+                tabMapa.posicionActual.setSnippet("(" + String.format("%.5f",posIni.latitude).replace(",",".") + ", " + String.format("%.5f",posIni.longitude).replace(",",".")  + ")");
             }
 
             tabMapa.url = getUrl(pais);
@@ -305,7 +290,9 @@ public class LatLngToPais {
                 tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(posIni).icon(tabMapa.marcadorColor));
                 tabMapa.posicionActual.setTitle("Unnamed");
                 tabMapa.map.moveCamera(CameraUpdateFactory.newLatLngZoom(posIni, 10));
-                tabMapa.posicionActual.setSnippet("(" + posIni.latitude + "," + posIni.longitude + ")");
+                //tabMapa.posicionActual.setSnippet("(" + posIni.latitude + "," + posIni.longitude + ")");
+                tabMapa.posicionActual.setSnippet("(" + String.format("%.5f",posIni.latitude).replace(",",".") + ", " + String.format("%.5f",posIni.longitude).replace(",",".")  + ")");
+
             }
         }
     }

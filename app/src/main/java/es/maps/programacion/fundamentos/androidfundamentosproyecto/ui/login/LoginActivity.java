@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (currentUser != null) {
                 String username = currentUser.getDisplayName();
-                SharedPreferences prefs = getApplication().getSharedPreferences("ToDoPrefs", 0);
+                SharedPreferences prefs = getApplication().getSharedPreferences("datos_usuario", 0);
                 prefs.edit().putString("username", username).commit();
                 Intent i = new Intent(this, MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
