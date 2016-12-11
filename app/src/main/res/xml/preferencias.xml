@@ -6,7 +6,7 @@
         <intent
             android:action="@string/accion_pais_origen"
         android:targetPackage="es.maps.programacion.fundamentos.androidfundamentosproyecto"
-        android:targetClass="es.maps.programacion.fundamentos.androidfundamentosproyecto.lib.divisas.ConvertidorDivisas"/>
+        android:targetClass="es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw.ConvertidorDivisas"/>
     </Preference>
 
 </PreferenceScreen>

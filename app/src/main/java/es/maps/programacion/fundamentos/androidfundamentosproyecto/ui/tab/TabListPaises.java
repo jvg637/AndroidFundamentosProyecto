@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import java.util.Vector;
 
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.ActividadMapa;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.adapter.AdaptadorPaises;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.tab.paises.adapter.PaisesAdapter;
 
 /**
  * Created by jvg63 on 21/09/2016.
@@ -35,7 +35,6 @@ public class TabListPaises extends Fragment {
         View view = inflater.inflate(R.layout.lista_paises, container, false);
         inicializaRecyclerView(view);
 
-        setHasOptionsMenu(true);
         return view;
 
     }
@@ -49,7 +48,7 @@ public class TabListPaises extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        AdaptadorPaises.PaisesAdapter adapter = new AdaptadorPaises.PaisesAdapter(getContext(), paises);
+        PaisesAdapter adapter = new PaisesAdapter(getContext(), paises);
 
 
         adapter.setOnItemClickListener(new View.OnClickListener() {

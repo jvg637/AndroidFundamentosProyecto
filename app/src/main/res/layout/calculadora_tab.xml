@@ -126,7 +126,8 @@
                     style="@style/EstiloBotonCalculadoraDigito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="@string/digito_9_calculadora"      android:layout_marginRight="1dp"
+                    android:tag="@string/digito_9_calculadora"
+                    android:layout_marginRight="1dp"
                     android:text="@string/digito_9_calculadora" />
             </LinearLayout>
 

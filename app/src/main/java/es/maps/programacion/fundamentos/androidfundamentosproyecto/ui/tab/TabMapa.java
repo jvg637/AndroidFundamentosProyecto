@@ -126,7 +126,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         app = (MapsApplication) getContext().getApplicationContext();
 
         bandera = (ImageView) rootView.findViewById(R.id.bandera);
-        bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         txtPais = (TextView) rootView.findViewById(R.id.pais);
 
         txtMoneda = (TextView) rootView.findViewById(R.id.divisas);
@@ -145,12 +145,16 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
                 } else {
                     if (estado == ESTADO_STOP || estado == ESTADO_NO_INICIADO || estado == ESTADO_FINALIZADO) {
+                        estado = ESTADO_PLAY;
                         playVideo();
 
+                    } else {
+                        iconosReproductor();
                     }
                 }
             }
         });
+
         bPause = (ImageButton)
 
                 rootView.findViewById(R.id.pause);
@@ -162,6 +166,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
                                           //showMessage("ESTADO=" + estado);
                                           if (mediaPlayer != null && estado == ESTADO_PLAY) {
                                               estado = ESTADO_PAUSE;
+
                                               mediaPlayer.pause();
                                               savePos = mediaPlayer.getCurrentPosition();
 
@@ -229,16 +234,19 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
 
     public void onBufferingUpdate(MediaPlayer arg0, int percent) {
-        if (percent < 100)
-            showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + percent);
-        else
+        showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + percent);
+        if (percent >= 100) {
+        } else
             logTextView.setVisibility(View.INVISIBLE);
     }
 
     public void onCompletion(MediaPlayer arg0) {
         //showMessage("onCompletion called");
-        estado = ESTADO_FINALIZADO;
-        savePos = 0;
+        if (estado == ESTADO_PLAY) {
+            estado = ESTADO_FINALIZADO;
+            savePos = 0;
+            iconosReproductor();
+        }
     }
 
     public void onPrepared(MediaPlayer mediaplayer) {
@@ -249,7 +257,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             mediaPlayer.start();
             estado = ESTADO_PLAY;
         }
-        iconosReproductor();
+        //iconosReproductor();
 
     }
 
@@ -259,15 +267,18 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             if (mediaPlayer != null) mediaPlayer.release();
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(path);
-
-            mediaPlayer.prepareAsync(); //Si streaming
+            iconosReproductor();
             mediaPlayer.setOnBufferingUpdateListener(this);
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.prepareAsync(); //Si streaming
+
+            ///if (estado == ESTADO_NO_INICIADO || estado == ESTADO_PLAY)
+
 
             //Log.d("POSICION", "posicion: " + savePos);
-            logTextView.setText("");
+            showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + 0);
             logTextView.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             showMessage("ERROR: " + e.getMessage());
@@ -279,7 +290,6 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public void onMapReady(GoogleMap retMap) {
 
         map = retMap;
-
 
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -373,23 +383,25 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     public void setUpMap() {
 
-        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        map.getUiSettings().setCompassEnabled(true);
+        //map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         map.getUiSettings().setZoomControlsEnabled(true);
-        map.getUiSettings().setCompassEnabled(true);
         map.getUiSettings().setZoomGesturesEnabled(true);
+        map.getUiSettings().setCompassEnabled(true);
 
-        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        map.setMyLocationEnabled(true);*/
+        /*if (paisIntencion == null || paisIntencion.isEmpty()) {
+
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            map.setMyLocationEnabled(true);
+        }*/
     }
 
     @Override
@@ -413,13 +425,18 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
     }
 
+    private void iconosReproductorPlay() {
+        bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play));
+        bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause_));
+        bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop_));
+    }
+
     private void iconosReproductor() {
+        //Log.d("ESTADO", "" + estado);
         switch (estado) {
 
             case ESTADO_PLAY:
-                bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play));
-                bPause.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.pause_));
-                bStop.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.stop_));
+                iconosReproductorPlay();
                 break;
             case ESTADO_PAUSE:
                 bPlay.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.play_));
@@ -445,7 +462,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
 
         if (mediaPlayer != null && (estado == ESTADO_PLAY || estado == ESTADO_PAUSE)) {
 
-            if (estado == ESTADO_PLAY) {
+            if (estado == ESTADO_PLAY && mediaPlayer.isPlaying()) {
                 savePos = mediaPlayer.getCurrentPosition();
                 mediaPlayer.pause();
             }
@@ -469,7 +486,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        if (paisIntencion == null || paisIntencion.isEmpty())
+        if ((paisIntencion == null || paisIntencion.isEmpty()) && manejador != null)
             manejador.removeUpdates(this);
     }
 

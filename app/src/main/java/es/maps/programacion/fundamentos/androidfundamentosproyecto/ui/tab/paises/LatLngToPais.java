@@ -270,7 +270,7 @@ public class LatLngToPais {
                 tabMapa.txtMoneda.setText(context.getString(R.string.tab_mapa_msg_moneda) + txtAuxDiv);
 
             } else {
-                tabMapa.txtMoneda.setText(context.getString(R.string.sinmoneda));
+                tabMapa.txtMoneda.setText("\t" + context.getString(R.string.sinmoneda));
 
             }
 
@@ -306,13 +306,10 @@ public class LatLngToPais {
         try {
 
             url = new URL(URL_GOOGLE_MAPS.replace("%param1", "" + latLng.latitude).replace("%param2", "" + latLng.longitude));
-
-
-            showMessage(url.toString());
+           //showMessage(url.toString());
 
             conexion = (HttpsURLConnection) url.openConnection();
             //conexion.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 6.1)");
-
 
             if (conexion.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
@@ -353,7 +350,7 @@ public class LatLngToPais {
             url = new URL(URL_GOOGLE_MAPS_LAT_LNG + URLEncoder.encode(paisLatLng.getPaisEN(), "UTF-8"));
 
 
-            showMessage(url.toString());
+            //showMessage(url.toString());
 
             conexion = (HttpsURLConnection) url.openConnection();
             //conexion.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 6.1)");
@@ -390,7 +387,7 @@ public class LatLngToPais {
         String jsonString = new String();
 
 
-        showMessage(json);
+        //showMessage(json);
         try {
 
 
@@ -455,7 +452,7 @@ public class LatLngToPais {
                         for (int j = 0; j < tipo.length(); j++) {
                             if (tipo.getString(j).equals("country")) {
                                 paisId = objeto.getString("short_name");
-                                showMessage("PAIS:" + paisId);
+                                //showMessage("PAIS:" + paisId);
 
                                 PaisesDivisasSQLite pd = new PaisesDivisasSQLite(context);
                                 pais = pd.getPais(paisId);

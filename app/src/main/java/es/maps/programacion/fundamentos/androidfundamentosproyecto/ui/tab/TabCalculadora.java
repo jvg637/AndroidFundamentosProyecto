@@ -21,10 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.R;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
+import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw.ConvertidorDivisas;
 import es.maps.programacion.fundamentos.androidfundamentosproyecto.ui.actividad.divisas_sw.DivisasSW;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.pojo.Pais;
-import es.maps.programacion.fundamentos.androidfundamentosproyecto.sqlite.PaisesDivisasSQLite;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -297,7 +297,7 @@ public class TabCalculadora extends Fragment {
 
     private void convierteDivisa(int opcion) {
         try {
-            double tipoDeCambio = -1;
+            //double tipoDeCambio = -1;
 
             if (Double.parseDouble(pantallaCalculadora.getText().toString()) == 0) {
                 Toast.makeText(getContext(), R.string.tab_calculadora_error_importe_a_convertir_0, Toast.LENGTH_SHORT).show();
@@ -315,10 +315,15 @@ public class TabCalculadora extends Fragment {
 
 
     private void actualizaTipoCambio(double tipoDeCambio) {
-        pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
 
-        flagNuevoNumero = true;
-        flagDecimalIntroducido = false;
+        if (tipoDeCambio == -1) {
+            Toast.makeText(getContext(), R.string.tab_calculadora_msg_error_convirtiendo_divisa, Toast.LENGTH_SHORT).show();
+        } else {
+            pantallaCalculadora.setText(String.valueOf(tipoDeCambio * Double.parseDouble(pantallaCalculadora.getText().toString())));
+
+            flagNuevoNumero = true;
+            flagDecimalIntroducido = false;
+        }
     }
 
 
@@ -334,7 +339,7 @@ public class TabCalculadora extends Fragment {
             progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                              @Override
                                              public void onCancel(DialogInterface dialog) {
-                                                 cancel(true);
+                                                 cancel(false);
                                              }
                                          }
 
@@ -377,6 +382,7 @@ public class TabCalculadora extends Fragment {
 
         @Override
         protected void onCancelled() {
+            progreso.dismiss();
             //salida.append("cancelado\n");
         }
     }
@@ -437,7 +443,9 @@ public class TabCalculadora extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle guardarEstado) {
 
-        guardarEstado.putString("pantalla", pantallaCalculadora.getText().toString());
+        if (pantallaCalculadora != null)
+            guardarEstado.putString("pantalla", pantallaCalculadora.getText().toString());
+
         guardarEstado.putDouble("sumando", sumando);
         guardarEstado.putDouble("acumulador", acumulador);
         guardarEstado.putString("tagPrevia", tagPrevia);

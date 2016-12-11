@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Vector;
@@ -103,10 +102,10 @@ public class PaisesDivisasSQLite extends SQLiteOpenHelper {
             cursor.close();
             db.close();
 
-            if (pais != null)
+            /*if (pais != null)
                 Log.d("PAIS OBTENIDO SQL:", pais.getPaisEN());
             else
-                Log.d("PAIS no existe:","");
+                Log.d("PAIS no existe:","");*/
 
         } catch (SQLiteException es) {
             Toast.makeText(context, R.string.sql_error_listar_un_pais, Toast.LENGTH_SHORT).show();
