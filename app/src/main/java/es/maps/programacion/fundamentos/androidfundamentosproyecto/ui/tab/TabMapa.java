@@ -126,7 +126,7 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
         app = (MapsApplication) getContext().getApplicationContext();
 
         bandera = (ImageView) rootView.findViewById(R.id.bandera);
-        //bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        bandera.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         txtPais = (TextView) rootView.findViewById(R.id.pais);
 
         txtMoneda = (TextView) rootView.findViewById(R.id.divisas);
@@ -236,8 +236,9 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     public void onBufferingUpdate(MediaPlayer arg0, int percent) {
         showMessageLog(getString(R.string.tab_mapa_msg_cacheando) + percent);
         if (percent >= 100) {
-        } else
             logTextView.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void onCompletion(MediaPlayer arg0) {
@@ -432,7 +433,8 @@ public class TabMapa extends Fragment implements OnMapReadyCallback, LocationLis
     }
 
     private void iconosReproductor() {
-        //Log.d("ESTADO", "" + estado);
+        //
+        // Log.d("ESTADO", "" + estado);
         switch (estado) {
 
             case ESTADO_PLAY:

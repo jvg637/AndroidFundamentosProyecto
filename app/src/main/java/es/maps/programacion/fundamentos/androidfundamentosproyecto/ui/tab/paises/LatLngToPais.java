@@ -284,7 +284,7 @@ public class LatLngToPais {
             tabMapa.hidePlayer();
             tabMapa.path = "";
             tabMapa.txtPais.setText(context.getResources().getString(R.string.sinpais));
-            tabMapa.txtMoneda.setText(context.getResources().getString(R.string.sinmoneda));
+            tabMapa.txtMoneda.setText("\t" + context.getResources().getString(R.string.sinmoneda));
 
             if (posIni != null) {
                 tabMapa.posicionActual = tabMapa.map.addMarker(new MarkerOptions().position(posIni).icon(tabMapa.marcadorColor));
